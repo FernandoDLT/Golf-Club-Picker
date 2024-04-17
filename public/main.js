@@ -1,39 +1,38 @@
 // Mapping of club IDs to their corresponding names
-const clubNames = {
-    putter: 'Putter, you got this',
-    wedge60: '60 Degree Wedge',
-    wedgeSand: 'Sand Wedge',
-    wedgePitch: 'Pitching Wedge',
-    nineIron: 'your go to club, 9 Iron',
-    eightIron: '8 Iron',
-    sevenIron: '7 Iron',
-    sixIron: '6 Iron',
-    fiveIron: '5 Iron',
-    fourIron: '4 Iron',
-    threeIron: '3 Iron',
-    fiveWood: '5 Wood',
-    threeWood: '3 Wood',
-    driver: 'Driver, swing for the fences'
-};
+const clubNames = {};
+
+// Get all labels within the club-distances div
+document.querySelectorAll('.club-distances label').forEach(label => {
+    // Extract the 'for' attribute of each label (which corresponds to the input ID)
+    // and use it as the key in the clubNames object
+    const key = label.getAttribute('for');
+    // Use the label text content as the value in the clubNames object
+    const value = label.textContent.trim(); // Trim to remove leading/trailing whitespaces
+    clubNames[key] = value;
+});
+// const clubNames = {
+//     putter: 'Putter, you got this',
+//     wedge60: '60 Degree Wedge',
+//     wedgeSand: 'Sand Wedge',
+//     wedgePitch: 'Pitching Wedge',
+//     nineIron: 'your go to club, 9 Iron',
+//     eightIron: '8 Iron',
+//     sevenIron: '7 Iron',
+//     sixIron: '6 Iron',
+//     fiveIron: '5 Iron',
+//     fourIron: '4 Iron',
+//     threeIron: '3 Iron',
+//     fiveWood: '5 Wood',
+//     threeWood: '3 Wood',
+//     driver: 'Driver, swing for the fences'
+// };
 
 // Function to save customized club distances to localStorage
 function saveSettings() {
-    let clubs = {
-        putter: document.getElementById('putter').value,
-        wedge60: document.getElementById('wedge60').value,
-        wedgeSand: document.getElementById('wedgeSand').value,
-        wedgePitch: document.getElementById('wedgePitch').value,
-        nineIron: document.getElementById('nineIron').value,
-        eightIron: document.getElementById('eightIron').value,
-        sevenIron: document.getElementById('sevenIron').value,
-        sixIron: document.getElementById('sixIron').value,
-        fiveIron: document.getElementById('fiveIron').value,
-        fourIron: document.getElementById('fourIron').value,
-        threeIron: document.getElementById('threeIron').value,
-        fiveWood: document.getElementById('fiveWood').value,
-        threeWood: document.getElementById('threeWood').value,
-        driver: document.getElementById('driver').value,
-    };
+    let clubs = {};
+    document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+            clubs[input.id] = input.value;
+        });
 
     localStorage.setItem('clubs', JSON.stringify(clubs));
 
@@ -82,10 +81,12 @@ window.onload = loadSettings;
 document.getElementById('saveBtn').addEventListener('click', saveSettings);
 
 document.querySelector('.reset').addEventListener('click', function() {
-    localStorage.removeItem('clubs');
+    // localStorage.removeItem('clubs');
     loadSettings();
     document.getElementById('yardage').value = '';
 });
+
+
 
 document.getElementById('yardage').addEventListener('input', function() {
     let yards = Number(this.value);
