@@ -1,20 +1,27 @@
-// Mapping of club IDs to their corresponding names
-const clubNames = {
-    putter: 'Putter, you got this',
-    wedge60: '60 Degree Wedge',
-    wedgeSand: 'Sand Wedge',
-    wedgePitch: 'Pitching Wedge',
-    nineIron: 'your go to club, 9 Iron',
-    eightIron: '8 Iron',
-    sevenIron: '7 Iron',
-    sixIron: '6 Iron',
-    fiveIron: '5 Iron',
-    fourIron: '4 Iron',
-    threeIron: '3 Iron',
-    fiveWood: '5 Wood',
-    threeWood: '3 Wood',
-    driver: 'Driver, swing for the fences'
-};
+// Define an empty object to store club names
+const clubNames = {};
+
+// Get all labels within the club-distances div
+document.querySelectorAll('.club-distances label').forEach(label => {
+    // Extract the 'for' attribute of each label (which corresponds to the input ID)
+    const key = label.getAttribute('for');
+    // Extract the label text content and remove the colon ':' if present
+    let value = label.textContent.trim();
+    // Special handling for certain clubs
+    if (key === 'driver') {
+        // Append additional text for the driver club
+        value = 'Driver, swing for the fences';
+    } else if (key === 'putter') {
+        // Append additional text for the putter club
+        value = 'Putter, you got this';
+    } else {
+        // Remove the colon ':' for other clubs
+        value = value.replace(':', '');
+    }
+    // Store the club name in the clubNames object
+    clubNames[key] = value;
+});
+
 
 // Function to save customized club distances to localStorage
 function saveSettings() {
