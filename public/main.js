@@ -1,31 +1,20 @@
 // Mapping of club IDs to their corresponding names
-const clubNames = {};
-
-// Get all labels within the club-distances div
-document.querySelectorAll('.club-distances label').forEach(label => {
-    // Extract the 'for' attribute of each label (which corresponds to the input ID)
-    // and use it as the key in the clubNames object
-    const key = label.getAttribute('for');
-    // Use the label text content as the value in the clubNames object
-    const value = label.textContent.trim(); // Trim to remove leading/trailing whitespaces
-    clubNames[key] = value;
-});
-// const clubNames = {
-//     putter: 'Putter, you got this',
-//     wedge60: '60 Degree Wedge',
-//     wedgeSand: 'Sand Wedge',
-//     wedgePitch: 'Pitching Wedge',
-//     nineIron: 'your go to club, 9 Iron',
-//     eightIron: '8 Iron',
-//     sevenIron: '7 Iron',
-//     sixIron: '6 Iron',
-//     fiveIron: '5 Iron',
-//     fourIron: '4 Iron',
-//     threeIron: '3 Iron',
-//     fiveWood: '5 Wood',
-//     threeWood: '3 Wood',
-//     driver: 'Driver, swing for the fences'
-// };
+const clubNames = {
+    putter: 'Putter, you got this',
+    wedge60: '60 Degree Wedge',
+    wedgeSand: 'Sand Wedge',
+    wedgePitch: 'Pitching Wedge',
+    nineIron: 'your go to club, 9 Iron',
+    eightIron: '8 Iron',
+    sevenIron: '7 Iron',
+    sixIron: '6 Iron',
+    fiveIron: '5 Iron',
+    fourIron: '4 Iron',
+    threeIron: '3 Iron',
+    fiveWood: '5 Wood',
+    threeWood: '3 Wood',
+    driver: 'Driver, swing for the fences'
+};
 
 // Function to save customized club distances to localStorage
 function saveSettings() {
@@ -86,7 +75,16 @@ document.querySelector('.reset').addEventListener('click', function() {
     document.getElementById('yardage').value = '';
 });
 
+document.querySelector('.resetClubs').addEventListener('click', function() {
+    localStorage.removeItem('clubs');
+    loadSettings();
+     // Reset all input fields within the club-distances div
+    document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+        input.value = '';
+    });
 
+    window.location.href = 'index.html';
+});
 
 document.getElementById('yardage').addEventListener('input', function() {
     let yards = Number(this.value);
