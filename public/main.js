@@ -123,28 +123,6 @@ document.getElementById('yardage').addEventListener('input', function() {
     resultElement.textContent = `Use your ${clubNames[club]}!`;
 });
 
-// // Function to save customized club distances to localStorage
-// function saveSettings() {
-//     let clubs = {
-//         putter: Number(document.getElementById('putter').value),
-//         wedge60: Number(document.getElementById('wedge60').value),
-//         wedgeSand: Number(document.getElementById('wedgeSand').value),
-//         wedgePitch: Number(document.getElementById('wedgePitch').value),
-//         nineIron: Number(document.getElementById('9Iron').value),
-//         eightIron: Number(document.getElementById('8Iron').value),
-//         sevenIron: Number(document.getElementById('7Iron').value),
-//         sixIron: Number(document.getElementById('6Iron').value),
-//         fiveIron: Number(document.getElementById('5Iron').value),
-//         fourIron: Number(document.getElementById('4Iron').value),
-//         threeIron: Number(document.getElementById('3Iron').value),
-//         fiveWood: Number(document.getElementById('5Wood').value),
-//         threeWood: Number(document.getElementById('3Wood').value),
-//         driver: Number(document.getElementById('driver').value),
-        
-//     };
-
-//     localStorage.setItem('clubs', JSON.stringify(clubs));
-// }
 
 // // Function to load customized club distances from localStorage
 // function loadSettings() {
