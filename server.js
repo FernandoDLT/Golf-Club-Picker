@@ -15,20 +15,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-
-// const express = require('express');
-// const app = express();
-// const PORT = 3000;
-
-// // Serve static files from the "public" directory
-// app.use(express.static('public'));
-
-// // Define routes
-// app.get('/', (req, res) => {
-//     res.send('Hello, World!');
-// });
-
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });

@@ -1,26 +1,71 @@
 * {
    box-sizing: border-box;
    padding: 0;
+   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-input {
-   padding: 10px;
-   width: 120px;
-   font-size: 12px;
+h1 {
+   color: rgb(45, 104, 74);
    text-align: center;
-   border-radius: 5px;
-   background: greenyellow;
+   margin-top: 60px;
+   text-decoration: underline;
+}
+
+.distance {
+   background-color: red;
+   width: 80%;
+   margin: 0 auto;
+}
+
+.club-distances {
+   width: 30%;
+   margin: 10px auto;
+   display: grid;
+   /* Use CSS grid */
+   grid-template-columns: max-content auto;
+   /* Set columns */
+   grid-row-gap: 10px;
+   /* Add gap between rows */
+   background: rgb(45, 104, 74);
+   justify-content: center;
+}
+
+.club-distances label {
+   color: white;
+   /* justify-self: end; */
+   /* Align labels to the end of their column */
+   margin-right: 4px;
+   /* margin-left: 60px; */
+   /* Add some space between label and input */
+}
+
+.club-distances input {
+   width: 100%;
+   /* Take up remaining space in the column */
+}
+
+label {
+   margin-top: 10px;
+   color: black;
+}
+
+ input {
+   padding-left: 16px;
+   /* margin-bottom: px; */
+   /* margin-right: 4px; */
+   height: 50px;
+   /* width: 8rem; */
+   font-size: 1.2rem;
+   text-align: center;
 }
 
 input:focus {
    background: greenyellow;
 }
 
-
-.distance {
-   margin: 160px auto 0;
-   display: block;
-   text-align: center;
+::placeholder {
+   color: gray;
+   font-size: 14px;
 }
 
 button {
@@ -43,4 +88,19 @@ button {
    padding: 6px 14px;
    border-radius: 52px;
    border: 2px solid green;
+}
+
+.resetClubs {
+   width: 8%;
+   height: 40px;
+   cursor: pointer;
+   padding: 6px 14px;
+   border-radius: 52px;
+   border: 2px solid green;
+}
+
+.resetClubs:hover {
+   background: red;
+   color: white;
+   border: none;
 }
