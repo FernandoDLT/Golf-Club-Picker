@@ -43,21 +43,39 @@ function hideFieldsAndButton() {
         // Hide the label associated with the input field
         document.querySelector(`label[for="${club}"]`).style.display = 'none';
         // Hide the input field
-        document.getElementById(club).style.display = 'none';
+        document.getElementById(`${club}`).style.display = 'none';
     });
 
-    // Move the resultElement inside the club-distances div
-    const resultElement = document.getElementById('result');
-    const clubDistancesDiv = document.querySelector('.club-distances');
-    if (clubDistancesDiv && resultElement) {
-        clubDistancesDiv.appendChild(resultElement);
-    }
-
+    // Hide the club-distances div
+    document.querySelector('.club-distances').style.display = 'none';
     // Hide the save button
     document.getElementById('saveBtn').style.display = 'none';
+    // Hide the instruction
     document.querySelector('.yards-reset h3').style.display = 'none';
     resultElement.style.color = 'black'
 }
+
+// function hideFieldsAndButton() {
+//     // Loop through each input field
+//     Object.keys(clubNames).forEach(club => {
+//         // Hide the label associated with the input field
+//         document.querySelector(`label[for="${club}"]`).style.display = 'none';
+//         // Hide the input field
+//         document.getElementById(`${club}`).style.display = 'none';
+//     });
+
+//     // Move the resultElement inside the club-distances div
+//     const resultElement = document.getElementById('result');
+//     const clubDistancesDiv = document.querySelector('.club-distances');
+//     if (clubDistancesDiv && resultElement) {
+//         clubDistancesDiv.appendChild(resultElement);
+//     }
+
+//     // Hide the save button
+//     document.getElementById('saveBtn').style.display = 'none';
+//     document.querySelector('.yards-reset h3').style.display = 'none';
+//     resultElement.style.color = 'black'
+// }
 
     // Call loadSettings when the page loads to populate the input fields
     window.onload = function() {
