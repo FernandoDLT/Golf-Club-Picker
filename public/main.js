@@ -46,8 +46,17 @@ function hideFieldsAndButton() {
         document.getElementById(club).style.display = 'none';
     });
 
+    // Move the resultElement inside the club-distances div
+    const resultElement = document.getElementById('result');
+    const clubDistancesDiv = document.querySelector('.club-distances');
+    if (clubDistancesDiv && resultElement) {
+        clubDistancesDiv.appendChild(resultElement);
+    }
+
     // Hide the save button
     document.getElementById('saveBtn').style.display = 'none';
+    document.querySelector('.yards-reset h3').style.display = 'none';
+    resultElement.style.color = 'black'
 }
 
     // Call loadSettings when the page loads to populate the input fields

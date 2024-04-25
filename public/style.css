@@ -5,38 +5,54 @@
 }
 
 h1 {
-   color: rgb(45, 104, 74);
+   color: rgb(96, 186, 180);
    text-align: center;
-   margin-top: 60px;
+   margin: 30px 0;
    text-decoration: underline;
 }
 
+#yardage {
+   width: 100px;
+   padding: 15px;
+   text-align: center;
+}
+
+.yards-reset {
+   width: 60%;
+   margin: 0 auto;
+   text-align: center;
+}
+
+h3 {
+   color:rgb(98, 196, 189);
+}
+
+.clubs-reset {
+   width: 60%;
+   margin: 0 auto;
+   text-align: center;
+}
+
 .distance {
-   background-color: red;
    width: 80%;
    margin: 0 auto;
 }
 
 .club-distances {
    width: 30%;
+   height: auto;
+   padding: 24px;
    margin: 10px auto;
    display: grid;
-   /* Use CSS grid */
    grid-template-columns: max-content auto;
-   /* Set columns */
    grid-row-gap: 10px;
-   /* Add gap between rows */
-   background: rgb(45, 104, 74);
+   background:rgb(182, 212, 210);
    justify-content: center;
 }
 
 .club-distances label {
-   color: white;
-   /* justify-self: end; */
-   /* Align labels to the end of their column */
+   color: black;
    margin-right: 4px;
-   /* margin-left: 60px; */
-   /* Add some space between label and input */
 }
 
 .club-distances input {
@@ -49,12 +65,9 @@ label {
    color: black;
 }
 
- input {
-   padding-left: 16px;
-   /* margin-bottom: px; */
-   /* margin-right: 4px; */
-   height: 50px;
-   /* width: 8rem; */
+input {
+   padding-left: 12px;
+   height: 35px;
    font-size: 1.2rem;
    text-align: center;
 }
@@ -69,21 +82,33 @@ input:focus {
 }
 
 button {
-   cursor: pointer;
+   margin: 0 auto;
    padding: 12px;
-   border-radius: 20px;
    color: green;
    background: yellow;
    border: 2px solid green;
+   border-radius: 20px;
+   cursor: pointer;
+   align-items: center;
+}
+
+button:hover {
+   color: white;
+   background: orange;
 }
 
 #result {
-   font-size: 35px;
-   color: red;
+   display: block;
+   font-size: 1.4rem;
+   color: orangered;
+   width: 100%;
+   margin: 0 auto;
+   margin: 20px auto;
+   text-align: center;
 }
 
 .reset {
-   width: 4%;
+   width: auto;
    cursor: pointer;
    padding: 6px 14px;
    border-radius: 52px;
@@ -91,12 +116,17 @@ button {
 }
 
 .resetClubs {
-   width: 8%;
+   width: auto;
    height: 40px;
    cursor: pointer;
    padding: 6px 14px;
    border-radius: 52px;
    border: 2px solid green;
+}
+
+#saveBtn:hover {
+   color: white;
+   background: green;
 }
 
 .resetClubs:hover {
