@@ -9,7 +9,7 @@
 
    <title>Golf Club Picker</title>
 
-   <link rel="stylesheet" href="css/normalize.css">
+   <!-- <link rel="stylesheet" href="css/normalize.css"> -->
    <link rel="stylesheet" href="style.css">
 </head>
 
@@ -72,17 +72,19 @@
       <div class="result-container">
          <span id="result"></span>
       </div>
-      <button id="saveBtn">Save</button>
-      <button class="resetClubs">Reset All Clubs</button>
-      <button id="startRoundBtn">Start Round</button>
-      <p id="yardsTraveled">Yards Traveled: <span id="yardsTraveledValue">${yardsTraveled}</span></p>
-
+   <button id="saveBtn">Save</button>
+   <button class="resetClubs">Reset All Clubs</button>
+   <button id="startRoundBtn">Start Round</button>
+   <div id="clubSuggestion"></div>
+   <span id="yardsTraveled"></span>
+   <span id="remainingDistance"></span>
+   <span id="holeCompletionMessage"></span>
    </div>
 
    <div class="holes-container">
       <div class="hole">
          <h2>Hole #1</h2>
-         <p>Par: 4</p>
+         <p>Par: 4</p>         
          <p>Distance: 400 yards</p>
          <button id="swingBtn1" class="swingBtn" disabled>Swing</button>
       </div>

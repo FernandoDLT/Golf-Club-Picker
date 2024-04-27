@@ -136,6 +136,11 @@ button:hover {
    border: none;
 }
 
+#yardsTraveled {
+   color: red;
+   background-color: purple;
+}
+
 /* .holes-container {
    display: none;
 } */
