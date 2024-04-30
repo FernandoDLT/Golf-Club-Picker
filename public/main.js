@@ -1,22 +1,22 @@
 const holes = [
     { number: 1, par: 4, distance: 400},
-    { number: 2, par: 3, distance: 120}
-    // { number: 3, par: 4, distance: 410},
-    // { number: 4, par: 5, distance: 530},
-    // { number: 5, par: 3, distance: 140},
-    // { number: 6, par: 4, distance: 420},
-    // { number: 7, par: 3, distance: 190},
-    // { number: 8, par: 5, distance: 550},
-    // { number: 9, par: 4, distance: 430},
-    // { number: 10, par: 4, distance: 380},
-    // { number: 11, par: 3, distance: 180},
-    // { number: 12, par: 5, distance: 510},
-    // { number: 13, par: 4, distance: 440},
-    // { number: 14, par: 4, distance: 300},
-    // { number: 15, par: 3, distance: 200},
-    // { number: 16, par: 5, distance: 540},
-    // { number: 17, par: 4, distance: 410},
-    // { number: 18, par: 4, distance: 390}
+    { number: 2, par: 3, distance: 120},
+    { number: 3, par: 4, distance: 410},
+    { number: 4, par: 5, distance: 530},
+    { number: 5, par: 3, distance: 140},
+    { number: 6, par: 4, distance: 420},
+    { number: 7, par: 3, distance: 190},
+    { number: 8, par: 5, distance: 550},
+    { number: 9, par: 4, distance: 430},
+    { number: 10, par: 4, distance: 380},
+    { number: 11, par: 3, distance: 180},
+    { number: 12, par: 5, distance: 510},
+    { number: 13, par: 4, distance: 440},
+    { number: 14, par: 4, distance: 300},
+    { number: 15, par: 3, distance: 200},
+    { number: 16, par: 5, distance: 540},
+    { number: 17, par: 4, distance: 410},
+    { number: 18, par: 4, distance: 390}
 ];
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -159,13 +159,15 @@ function startRound() {
     // Display information for hole number one
     const hole = holes[0]; // Hole number one
     displayHole(hole); // Display hole information
-
+    
     // Determine the suggested club based on distance
     const suggestedClub = suggestClub(hole.distance);
-
+    
     // Update HTML to display suggested club
     const clubSuggestionElement = document.getElementById('clubSuggestion');
     clubSuggestionElement.textContent = `Suggested Club: ${suggestedClub}`;
+    
+    document.querySelector('.hole').scrollIntoView({ behavior: 'smooth' })
 }
 
 // Function to suggest the appropriate club based on distance
@@ -185,13 +187,72 @@ function displayHole(hole) {
     <h2>Hole #${hole.number}</h2>
     <p>Par: ${hole.par}</p>
     <p>Distance: ${hole.distance} yards</p>
+    <button id="swingBtn${hole.number}" class="swingBtn" disabled>Swing</button>
     `;
+    }
+    
+    // Function to handle the swing action
+function swing() {
+    // Get the distance of the current hole
+    const currentHoleDistance = holes[currentHoleIndex].distance;
+
+    // Generate a random distance traveled (between 1 and the current hole distance)
+    const yardsTraveled = Math.floor(Math.random() * currentHoleDistance) + 1;
+
+    // Calculate the remaining distance
+    const remainingDistance = currentHoleDistance - yardsTraveled;
+
+ // Update the HTML elements with the generated distances
+    document.getElementById('yardsTraveled').textContent = `Yards Traveled: ${yardsTraveled} yards`;
+    document.getElementById('remainingDistance').textContent = `Remaining Distance: ${remainingDistance} yards`;   
+
+    // Disable the "Swing" button after it's clicked
+    document.getElementById(`swingBtn${currentHoleIndex + 1}`).disabled = true;
+
+    // Enable the "Swing" button for the next hole if it exists
+    if (currentHoleIndex < holes.length - 1) {
+        document.getElementById(`swingBtn${currentHoleIndex + 2}`).disabled = false;
+    }
+
+    // Display a completion message if the remaining distance is 0
+    if (remainingDistance === 0) {
+        document.getElementById('holeCompletionMessage').textContent = 'Hole Completed!';
+    }
 }
 
-// Event listener for the "Start Round" button
-document.getElementById('startRoundBtn').addEventListener('click', startRound);
+    // Add event listeners to all "Swing" buttons
+    document.querySelectorAll('.swingBtn').forEach((button) => {
+        button.addEventListener('click', swing);
+    });
+
+
+    document.getElementById('startRoundBtn').addEventListener('click', startRound);
+    // Event listener for the "Start Round" button
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // let currentHole = 0; // Index of the current hole
 // let totalScore = 0; // Total score for the round

@@ -108,6 +108,30 @@ button:hover {
    text-align: center;
 }
 
+#yardageTraveled {
+   display: block;
+   font-size: 1.4rem;
+   font-weight: bold;
+   color: red;
+   width: 55%;
+   padding: 5px;
+   margin: 0 auto;
+   margin: 20px auto;
+   text-align: center;
+}
+
+#remainingDistance {
+   display: block;
+   font-size: 1.4rem;
+   font-weight: bold;
+   color: red;
+   width: 55%;
+   padding: 5px;
+   margin: 0 auto;
+   margin: 20px auto;
+   text-align: center;
+}
+
 .reset {
    width: auto;
    cursor: pointer;
