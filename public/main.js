@@ -20,6 +20,21 @@ const holes = [
     { number: 18, par: 4, distance: 390}
 ];
 
+// Variable to store the current hole
+let currentHole;
+
+// Function to display the details for a specific hole
+    function displayHole(hole) {
+        const holeElement = document.querySelector('.hole');
+        holeElement.innerHTML = `
+        <h2>Hole #${hole.number}</h2>
+        <p>Par: ${hole.par}</p>
+        <p>Distance: ${hole.distance} yards</p>
+        <button id="swingBtn${hole.number}" class="swingBtn" disabled>Swing</button>
+        <button id="nextHole${hole.number}" class="next" disabled>Next Hole</button>
+    `;
+}
+
 // // Initialize empty hole object for club names
 const clubNames = {};
 
@@ -97,18 +112,6 @@ function populateHoleContainer(holeNumber) {
         console.error("Hole details not found for hole number: " + holeNumber);
     }
 }
-
-// Function to display the details for a specific hole
-function displayHole(hole) {
-    const holeElement = document.querySelector('.hole');
-    holeElement.innerHTML = `
-    <h2>Hole #${hole.number}</h2>
-    <p>Par: ${hole.par}</p>
-    <p>Distance: ${hole.distance} yards</p>
-    <button id="swingBtn${hole.number}" class="swingBtn" disabled>Swing</button>
-    `;
-}
-
 
 // Function to suggest club based on entered yardage
 function suggestClub() {
@@ -199,17 +202,161 @@ function resetAllClubs() {
 // Event listener for reset all clubs button click
 document.getElementById("resetAllClubsBtn").addEventListener("click", resetAllClubs);
 
+// Function to generate random yardage
+function generateRandomYardage(maxDistance) {
+    return Math.floor(Math.random() * maxDistance) + 1;
+}
+
 // Event listener for Start Round button click
-document.getElementById("startRoundBtn").addEventListener("click", function () {
+// Event listener for Start Round button click
+document.querySelector(".startRoundBtn").addEventListener("click", function() {
     // Display the container for hole #1
     document.getElementById("hole1").style.display = "block";
-
+    
     // Find the hole details for hole #1
-    const hole1 = holes.find(hole => hole.number === 1);
+    currentHole = holes.find(hole => hole.number === 1);
 
-    // Trigger the displayHole function with the first hole number (1)
-    displayHole(1);
+    // Display the hole details
+    displayHole(currentHole);
+
+    // Event listener for Swing button click
+    document.getElementById(`swingBtn${currentHole.number}`).addEventListener("click", function() {
+        // Get the entered yardage
+        var yardage = parseInt(document.getElementById("yardage").value);
+
+        // Generate random yardage if yardage is not provided
+        if (isNaN(yardage)) {
+            yardage = generateRandomYardage(currentHole.distance);
+        }
+
+        // Update spans with yardage information
+        document.getElementById("yardsTraveled").textContent = `Yards Traveled: ${yardage}`;
+        currentHole.distance -= yardage; // Update remaining distance
+        document.getElementById("remainingDistance").textContent = `Remaining Distance: ${currentHole.distance}`;
+
+        // Check for club suggestion based on distance
+        suggestClub();
+        
+        // Check completion
+        if (currentHole.distance <= 0) {
+            document.getElementById("holeCompletionMessage").textContent = "Hole Completed!";
+            document.getElementById(`nextHole${currentHole.number}`).disabled = false; // Enable Next Hole button
+            this.disabled = true; // Disable Swing button
+        }
+    });
 });
+
+// document.querySelector(".startRoundBtn").addEventListener("click", function() {
+//     // Display the container for hole #1
+//     document.getElementById("hole1").style.display = "block";
+    
+//     // Find the hole details for hole #1
+//     currentHole = holes.find(hole => hole.number === 1);
+
+//     // Display the hole details
+//     displayHole(currentHole);
+
+
+// // Event listener for Swing button click
+// // Event listener for Swing button click
+// document.getElementById(`swingBtn${currentHole.number}`).addEventListener("click", function() {
+//     // Get the entered yardage
+//     var yardage = parseInt(document.getElementById("yardage").value);
+
+//     // Generate random yardage if yardage is not provided
+//     if (isNaN(yardage)) {
+//         yardage = generateRandomYardage(currentHole.distance);
+//     }
+
+//     // Update spans with yardage information
+//     document.getElementById("yardsTraveled").textContent = `Yards Traveled: ${yardage}`;
+//     currentHole.distance -= yardage; // Update remaining distance
+//     document.getElementById("remainingDistance").textContent = `Remaining Distance: ${currentHole.distance}`;
+
+//     // Check for club suggestion based on distance
+//     suggestClub();
+    
+//     // Check completion
+//     if (currentHole.distance <= 0) {
+//         document.getElementById("holeCompletionMessage").textContent = "Hole Completed!";
+//         document.getElementById(`nextHole${currentHole.number}`).disabled = false; // Enable Next Hole button
+//         this.disabled = true; // Disable Swing button
+//     }
+// });
+// });
+
+// // document.getElementById(`swingBtn${hole1.number}`).addEventListener("click", function() {
+//     document.getElementById(`swingBtn${currentHole.number}`).addEventListener("click", function() {
+//     // Get the entered yardage
+//     var yardage = parseInt(document.getElementById("yardage").value);
+
+//     // Generate random yardage if yardage is not provided
+//     if (isNaN(yardage)) {
+//         yardage = generateRandomYardage(currentHole.distance);
+//     }
+
+//     // Update spans with yardage information
+//     document.getElementById("yardsTraveled").textContent = `Yards Traveled: ${yardage}`;
+//     currentHole.distance -= yardage; // Update remaining distance
+//     document.getElementById("remainingDistance").textContent = `Remaining Distance: ${currentHole.distance}`;
+
+//     // Check for club suggestion based on distance
+//     suggestClub();
+    
+//     // Check completion
+//     if (currentHole.distance <= 0) {
+//         document.getElementById("holeCompletionMessage").textContent = "Hole Completed!";
+//         document.getElementById(`nextHole${currentHole.number}`).disabled = false; // Enable Next Hole button
+//         this.disabled = true; // Disable Swing button
+//     }
+// });
+
+// document.querySelector(".startRoundBtn").addEventListener("click", function() {
+//     // Display the container for hole #1
+//     document.getElementById("hole1").style.display = "block";
+    
+//     // Find the hole details for hole #1
+//     const hole1 = holes.find(hole => hole.number === 1);
+
+//     // Display the hole details
+//     displayHole(hole1);
+
+//     // Event listener for Swing button click
+//     document.getElementById(`swingBtn${hole1.number}`).addEventListener("click", function() {
+//         // Generate random yardage
+//         const randomYardage = generateRandomYardage(hole1.distance);
+
+//         // Update spans with yardage information
+//         document.getElementById("yardsTraveled").textContent = `Yards Traveled: ${randomYardage}`;
+//         hole1.distance -= randomYardage; // Update remaining distance
+//         document.getElementById("remainingDistance").textContent = `Remaining Distance: ${hole1.distance}`;
+
+//         // Check for club suggestion based on distance
+//         const suggestedClub = suggestClub(hole1.distance);
+//         console.log("Suggested Club:", suggestedClub);
+
+//         // Check completion
+//         if (hole1.distance === 0) {
+//             document.getElementById("holeCompletionMessage").textContent = "Hole Completed!";
+//             document.getElementById(`nextHole${hole1.number}`).disabled = false; // Enable Next Hole button
+//             this.disabled = true; // Disable Swing button
+//         }
+//     });
+// });
+
+
+// Event listener for Start Round button click
+// document.getElementById("startRoundBtn").addEventListener("click", function () {
+//     // Display the container for hole #1
+//     document.getElementById("hole1").style.display = "block";
+    
+//     // Find the hole details for hole #1
+//     const hole1 = holes.find(hole => hole.number === 1);
+    
+//     // Trigger the displayHole function with the first hole number (1)
+//     displayHole(hole1);
+// });
+
 
 
 
