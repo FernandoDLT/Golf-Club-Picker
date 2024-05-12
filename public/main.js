@@ -221,29 +221,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// function handleClubDistanceInputChange() {
-//     // Check if all fields are filled
-//     if (allFieldsFilled()) {
-//         // Show the "Start Round" button
-//         document.querySelector('.startRoundBtn').style.display = 'block';
-//         // Hide the message
-//         document.querySelector('h3').style.display = 'none';
-//     } else {
-//         // Hide the "Start Round" button
-//         document.querySelector('.startRoundBtn').style.display = 'none';
-//         // Show the message
-//         document.querySelector('h3').style.display = 'block';
-//     }
-// }
-
-// // Event listener for input change in club distances
-// document.addEventListener('DOMContentLoaded', function () {
-//     document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
-//         input.addEventListener('input', handleClubDistanceInputChange);
-//     });
-// });
-
-
 // Function to set up event listeners
 function setupEventListeners() {
     document.getElementById('saveBtn').addEventListener('click', saveSettings);
@@ -345,14 +322,6 @@ function completeHole(holeNumber) {
         console.log('All holes completed!');
     }
 }
-
-
-
-
-
-
-
-
 
 
 // // Define holes
