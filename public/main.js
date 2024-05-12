@@ -40,7 +40,6 @@ function saveSettings() {
     alert("Your clubs have been customized.");
 }
 
-// // Event listener for the "Start Round" button
 // Event listener for the "Start Round" button
 document.querySelector('.startRoundBtn').addEventListener('click', function() {
     // Hide the "Start Round" button
@@ -178,7 +177,73 @@ function loadSettings() {
     }
 }
 
-// Function to set up event listeners
+// Function to check if all input fields in the club-distances div are filled
+function allFieldsFilled() {
+    const inputs = document.querySelectorAll('.club-distances input[type="number"]');
+    for (let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].value) {
+            return false; // Return false if any input field is empty
+        }
+    }
+    return true; // Return true if all input fields are filled
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Hide the "Start Round" button initially
+    document.querySelector('.startRoundBtn').style.display = 'none';
+    
+    // Add event listeners to input fields
+    document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+        input.addEventListener('input', handleClubDistanceInputChange);
+    });
+});
+
+// Function to handle input change in club distances
+function handleClubDistanceInputChange() {
+    // Check if all fields are filled
+    if (allFieldsFilled()) {
+        // Show the "Start Round" button
+        document.querySelector('.startRoundBtn').style.display = 'block';
+        // Hide the message
+        document.querySelector('.yardsReset h3').style.display = 'none';
+    } else {
+        // Hide the "Start Round" button
+        document.querySelector('.startRoundBtn').style.display = 'none';
+        // Show the message
+        document.querySelector('.yardsReset h3').style.display = 'block';
+    }
+}
+
+// Event listener for input change in club distances
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+        input.addEventListener('input', handleClubDistanceInputChange);
+    });
+});
+
+// function handleClubDistanceInputChange() {
+//     // Check if all fields are filled
+//     if (allFieldsFilled()) {
+//         // Show the "Start Round" button
+//         document.querySelector('.startRoundBtn').style.display = 'block';
+//         // Hide the message
+//         document.querySelector('h3').style.display = 'none';
+//     } else {
+//         // Hide the "Start Round" button
+//         document.querySelector('.startRoundBtn').style.display = 'none';
+//         // Show the message
+//         document.querySelector('h3').style.display = 'block';
+//     }
+// }
+
+// // Event listener for input change in club distances
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+//         input.addEventListener('input', handleClubDistanceInputChange);
+//     });
+// });
+
+
 // Function to set up event listeners
 function setupEventListeners() {
     document.getElementById('saveBtn').addEventListener('click', saveSettings);
@@ -202,28 +267,6 @@ function setupEventListeners() {
     });
 }
 
-// function setupEventListeners() {
-//    document.getElementById('saveBtn').addEventListener('click', saveSettings);
-//    document.querySelector('.reset').addEventListener('click', function() {
-//       // localStorage.removeItem('clubs');
-//       loadSettings();
-//       document.getElementById('yardage').value = '';
-//    });
-    
-//     document.querySelector('.resetClubs').addEventListener('click', function () {
-//         // Clear local storage
-//         localStorage.removeItem('clubs');
-
-//         // Reset all input fields within the club-distances div
-//         document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
-//             input.value = '';
-//         });
-
-//         // Redirect to the homepage
-//         window.location.href = 'index.html';
-//     });
-// }
-
 // Function to suggest the appropriate club based on distance
 function suggestClub(distance) {
     try {
@@ -232,9 +275,9 @@ function suggestClub(distance) {
             throw new Error('Please enter a valid positive integer for yardage.');
         }
         
-        const clubDistancesJSON = localStorage.getItem("clubDistances");
+        const clubDistancesJSON = localStorage.getItem("clubs");
         if (!clubDistancesJSON) {
-            throw new Error('Club distances have not been set. Please set club distances first.');
+            throw new Error('Club distances have not been set.');
         }
         
         const clubDistances = JSON.parse(clubDistancesJSON);
@@ -263,7 +306,7 @@ function suggestClub(distance) {
         return suggestedClub ? suggestedClub.name : "No club found for the entered yardage.";
     } catch (error) {
         console.error("Error suggesting club:", error.message);
-        return "Error suggesting club: " + error.message;
+        return "Club distances have not been set.";
     }
 }
 
@@ -271,7 +314,7 @@ function suggestClub(distance) {
 document.getElementById("yardage").addEventListener("input", function() {
     const yardage = document.getElementById("yardage").value;
     const suggestedClub = suggestClub(yardage);
-    document.getElementById("result").innerText = "Suggested Club: " + suggestedClub;
+    document.getElementById("result").innerText = suggestedClub;
 });
 
 // Load settings when the page loads
@@ -305,7 +348,13 @@ function completeHole(holeNumber) {
 
 
 
-// // Will not show Suggested Club for yards
+
+
+
+
+
+
+
 // // Define holes
 // const holes = [
 //     { number: 1, par: 4, distance: 400},
@@ -331,17 +380,15 @@ function completeHole(holeNumber) {
 // // Initialize empty hole object for club names
 // const clubNames = {};
 
-
 // // Load settings when the page loads
 // loadSettings();
 
 // // Event listeners setup
 // document.addEventListener('DOMContentLoaded', setupEventListeners);
 
-
 // // Function to save customized club distances to localStorage
 // function saveSettings() {
-//    const clubs = {};
+//     const clubs = {};
 //     document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
 //         clubs[input.id] = input.value;
 //     });
@@ -352,10 +399,21 @@ function completeHole(holeNumber) {
 
 // // Event listener for the "Start Round" button
 // document.querySelector('.startRoundBtn').addEventListener('click', function() {
+//     // Hide the "Start Round" button
+//     this.style.display = 'none';
+
+//     // Show the holes container
+//     const holesContainer = document.querySelector('.holes-container');
+//     holesContainer.style.display = 'block';
+
+//     const yardsCounter = document.querySelector('.yardsCounter');
+//     yardsCounter.style.display = 'block'
+
 //     // Hide certain features
-//     hideFieldsAndButton();    
-//     // Start the round
-//     startRound(1);    
+//     hideFieldsAndButton();
+
+//     // Start the round and load hole information and the suggested club for the first hole
+//     startRound(1);
 // });
 
 // // Function to start the round and display information for a specific hole
@@ -476,25 +534,88 @@ function completeHole(holeNumber) {
 //     }
 // }
 
+// // Function to check if all input fields in the club-distances div are filled
+// function allFieldsFilled() {
+//     const inputs = document.querySelectorAll('.club-distances input[type="number"]');
+//     for (let i = 0; i < inputs.length; i++) {
+//         if (!inputs[i].value) {
+//             return false; // Return false if any input field is empty
+//         }
+//     }
+//     return true; // Return true if all input fields are filled
+// }
+
+// // Function to handle input change in club distances
+// // Function to handle input change in club distances
+// function handleClubDistanceInputChange() {
+//     // Check if all fields are filled
+//     if (allFieldsFilled()) {
+//         // Show the "Start Round" button
+//         document.querySelector('.startRoundBtn').style.display = 'block';
+//         // Hide the message
+//         document.querySelector('.club-distances-message').style.display = 'none';
+//         // Hide the instruction
+//         const instruction = document.querySelector('.yardsReset h3');
+//         if (instruction) {
+//             instruction.style.display = 'none';
+//         }
+//     } else {
+//         // Hide the "Start Round" button
+//         document.querySelector('.startRoundBtn').style.display = 'none';
+//         // Show the message
+//         document.querySelector('.club-distances-message').style.display = 'block';
+//         // Show the instruction
+//         const instruction = document.querySelector('.yardsReset h3');
+//         if (instruction) {
+//             instruction.style.display = 'block';
+//         }
+//     }
+// }
+
+// function handleClubDistanceInputChange() {
+//     // Check if all fields are filled
+//     if (allFieldsFilled()) {
+//         // Show the "Start Round" button
+//         document.querySelector('.startRoundBtn').style.display = 'block';
+//         // Hide the message
+//         document.querySelector('.club-distances-message').style.display = 'none';
+//     } else {
+//         // Hide the "Start Round" button
+//         document.querySelector('.startRoundBtn').style.display = 'none';
+//         // Show the message
+//         document.querySelector('.club-distances-message').style.display = 'block';
+//     }
+// }
+
+// // Event listener for input change in club distances
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+//         input.addEventListener('input', handleClubDistanceInputChange);
+//     });
+// });
+
+
 // // Function to set up event listeners
 // function setupEventListeners() {
-//    document.getElementById('saveBtn').addEventListener('click', saveSettings);
-//    document.querySelector('.reset').addEventListener('click', function() {
-//       // localStorage.removeItem('clubs');
-//       loadSettings();
-//       document.getElementById('yardage').value = '';
-//    });
-   
-//    document.querySelector('.resetClubs').addEventListener('click', function() {
-//       localStorage.removeItem('clubs');
-//       loadSettings();
-//       // Reset all input fields within the club-distances div
-//       document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
-//          input.value = '';
-//       });
-      
-//       window.location.href = 'index.html';
-//    });
+//     document.getElementById('saveBtn').addEventListener('click', saveSettings);
+//     document.querySelector('.reset').addEventListener('click', function () {
+//         // localStorage.removeItem('clubs');
+//         // Remove the call to loadSettings() here
+//         document.getElementById('yardage').value = '';
+//     });
+
+//     document.querySelector('.resetClubs').addEventListener('click', function () {
+//         // Clear local storage
+//         localStorage.removeItem('clubs');
+
+//         // Reset all input fields within the club-distances div
+//         document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
+//             input.value = '';
+//         });
+
+//         // Redirect to the homepage
+//         window.location.href = 'index.html';
+//     });
 // }
 
 // // Function to suggest the appropriate club based on distance
@@ -505,9 +626,9 @@ function completeHole(holeNumber) {
 //             throw new Error('Please enter a valid positive integer for yardage.');
 //         }
         
-//         const clubDistancesJSON = localStorage.getItem("clubDistances");
+//         const clubDistancesJSON = localStorage.getItem("clubs");
 //         if (!clubDistancesJSON) {
-//             throw new Error('Club distances have not been set. Please set club distances first.');
+//             throw new Error('Club distances have not been set.');
 //         }
         
 //         const clubDistances = JSON.parse(clubDistancesJSON);
@@ -536,7 +657,7 @@ function completeHole(holeNumber) {
 //         return suggestedClub ? suggestedClub.name : "No club found for the entered yardage.";
 //     } catch (error) {
 //         console.error("Error suggesting club:", error.message);
-//         return "Error suggesting club: " + error.message;
+//         return "Club distances have not been set.";
 //     }
 // }
 
@@ -544,7 +665,7 @@ function completeHole(holeNumber) {
 // document.getElementById("yardage").addEventListener("input", function() {
 //     const yardage = document.getElementById("yardage").value;
 //     const suggestedClub = suggestClub(yardage);
-//     document.getElementById("result").innerText = "Suggested Club: " + suggestedClub;
+//     document.getElementById("result").innerText = suggestedClub;
 // });
 
 // // Load settings when the page loads
@@ -575,5 +696,3 @@ function completeHole(holeNumber) {
 //         console.log('All holes completed!');
 //     }
 // }
-// // Start the round
-// startRound(1);
