@@ -3,7 +3,7 @@
    padding: 0;
    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+/* Main header */
 h1 {
    color: rgb(96, 186, 180);
    text-align: center;
@@ -11,46 +11,63 @@ h1 {
    text-decoration: underline;
 }
 
+/* Reset Yards */
 .yardsReset {
    width: 60%;
-   margin: 0 auto;
+   margin: 3% auto 0;
    text-align: center;
 }
-
+/* Yardage info */
 h3 {
    color:rgb(96, 186, 180);
 }
-
+/* Contains Holes information */
 .holes-container {
    display: none;
 }
 
+.swingBtn {
+   margin: 0 auto;
+   padding: 12px;
+   color: green;
+   background: yellow;
+   border: 2px solid green;
+   border-radius: 20px;
+   cursor: pointer;
+   align-items: center;
+}
+
+
+/* Resets all clubs inputs */
 .clubs-reset {
    width: 60%;
    margin: 0 auto;
    text-align: center;
 }
 
-.distance {
+/* .distance {
    width: 80%;
    margin: 0 auto;
-}
+} */
 
+/* Club distances container */
 .club-distances {
-   width: 30%;
+   width: 34%;
    height: auto;
-   padding: 24px;
-   margin: 10px auto;
+   padding: 50px;
+   margin: 10px auto 40px;
    display: grid;
    grid-template-columns: max-content auto;
    grid-row-gap: 10px;
    background:rgb(182, 212, 210);
    justify-content: center;
+   box-shadow: -4px 2px 10px rgba(0, 0, 0, 0.2);
+   border-radius: 2px;
 }
-
+/* Club labels */
 .club-distances label {
    color: black;
-   margin-right: 4px;
+   margin-right: 16px;
 }
 
 .club-distances input {
@@ -58,14 +75,10 @@ h3 {
    /* Take up remaining space in the column */
 }
 
-.club-distances {
-   box-shadow: -4px 2px 10px rgba(0, 0, 0, 0.2);
-   border-radius: 2px;
-}
-
 label {
-   margin-top: 10px;
-   color: black;
+   margin: 10px;
+   font-size: 20px;
+   color: rgb(13, 131, 123);
 }
 
 input {
@@ -84,7 +97,7 @@ input:focus {
    font-size: 14px;
 }
 
-button {
+#resetYardageBtn {
    margin: 0 auto;
    padding: 12px;
    color: green;
@@ -95,7 +108,7 @@ button {
    align-items: center;
 }
 
-button:hover {
+#resetYardageBtn:hover {
    color: white;
    background: orange;
 }
@@ -145,7 +158,20 @@ h3 {
    text-align: center;
 }
 
-.reset {
+.clubs-reset button {
+   display: inline-block;
+   margin-right: 10px;
+   margin: 0 auto;
+   padding: 12px;
+   color: green;
+   background: yellow;
+   border: 2px solid green;
+   border-radius: 20px;
+   cursor: pointer;
+   align-items: center;
+}
+
+/* .reset {
    width: auto;
    cursor: pointer;
    padding: 6px 14px;
@@ -153,14 +179,20 @@ h3 {
    border: 2px solid green;
 }
 
+.clubs-reset button {
+   margin-right: 0;
+}
+
 .resetClubs {
+   display: inline-block;
+   flex-direction: row;
    width: auto;
    height: 40px;
    cursor: pointer;
    padding: 6px 14px;
    border-radius: 52px;
    border: 2px solid green;
-}
+} */
 
 #saveBtn:hover {
    color: white;
@@ -172,20 +204,17 @@ h3 {
    color: white;
    border: none;
 }
-
+/* Yard Distances information */
 #yardsTraveled, #remainingDistance {
    color: rgb(96, 186, 180);
    /* background-color: rgb(99, 3, 99); */
 }
-
-/* .startRoundBtn {
-   display: none;
-} */
-
-#startRoundBtn:hover {
+/* Start round button */
+.startRoundBtn:hover {
+   color: white;
    background: green;
 }
-
+/* Current hole info */
 .hole {
    text-align: center;
    margin: 20px auto;
