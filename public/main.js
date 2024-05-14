@@ -37,7 +37,7 @@ function saveSettings() {
     });
     localStorage.setItem('clubs', JSON.stringify(clubs));
     // Customized clubs alert
-    alert("Your clubs have been customized.");
+    // alert("Your clubs have been customized.");
     // Show the "Start Round" button
     document.querySelector('.startRoundBtn').style.display = 'inline-block';
 }
@@ -249,7 +249,9 @@ function setupEventListeners() {
 // Function to suggest the appropriate club based on distance
 function suggestClub(distance) {
     try {
+        console.log("Distance:", distance); // Debugging statement
         const yardage = parseInt(distance);
+        console.log("Yardage:", yardage); // Debugging statement
         if (isNaN(yardage) || yardage <= 0) {
             throw new Error('Please enter a valid positive integer for yardage.');
         }
@@ -265,6 +267,11 @@ function suggestClub(distance) {
             return "Driver, swing for the fences!";
         }
         
+        const threeWoodDistance = parseInt(clubDistances.threeWood);
+        if (!isNaN(threeWoodDistance) && yardage >= threeWoodDistance && yardage < driverDistance) {
+            return "3 Wood";
+        }
+        
         const clubs = [
             { name: "Putter, you got this...", distance: clubDistances.putter },
             { name: "60 Degree", distance: clubDistances.sixtyDegree },
@@ -278,7 +285,7 @@ function suggestClub(distance) {
             { name: "4 Iron", distance: clubDistances.fourIron },
             { name: "3 Iron", distance: clubDistances.threeIron },
             { name: "5 Wood", distance: clubDistances.fiveWood },
-            { name: "3 Wood", distance: clubDistances.threeWood }
+            { name: "3 Wood", distance: clubDistances.threeWood },
         ];
         
         const suggestedClub = clubs.find(club => yardage <= parseInt(club.distance));
@@ -310,17 +317,50 @@ function displayHole(hole) {
         <p>Par: ${hole.par}</p>
         <p>Distance: ${hole.distance} yards</p>
         <button id="swingBtn${hole.number}" class="swingBtn" disabled>Swing</button>
+        <button id="nextHoleBtn">Next Hole</button>
     `;
 }
 
 // Function to handle completion of a hole
 function completeHole(holeNumber) {
     // Logic to handle completion of a hole, e.g., move to the next hole
-    if (holeNumber < holes.length) {
-        // Move to the next hole
-        startRound(holeNumber + 1);
-    } else {
-        // All holes are completed, display a message or perform any final actions
-        console.log('All holes completed!');
+    const nextHoleBtn = document.getElementById('nextHoleBtn');
+    if (!nextHoleBtn) {
+        console.error('Next Hole button not found.');
+        return;
     }
+
+    // Display the "Next Hole" button
+    nextHoleBtn.style.display = 'inline-block';
+
+    // Hide the "Hole Completed" message
+    const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+    if (holeCompletionMessage) {
+        holeCompletionMessage.textContent = 'Hole Completed!';
+    } else {
+        console.error('Hole Completed message element not found.');
+    }
+
+    // Event listener for the "Next Hole" button
+    nextHoleBtn.addEventListener('click', function() {
+        // Hide the "Next Hole" button
+        nextHoleBtn.style.display = 'none';
+
+        // Hide the "Hole Completed" message
+        const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+        if (holeCompletionMessage) {
+            holeCompletionMessage.textContent = '';
+        } else {
+            console.error('Hole Completed message element not found.');
+        }
+
+        // Move to the next hole
+        if (holeNumber < holes.length) {
+            // Move to the next hole
+            startRound(holeNumber + 1);
+        } else {
+            // All holes are completed, display a message or perform any final actions
+            console.log('All holes completed!');
+        }
+    });
 }

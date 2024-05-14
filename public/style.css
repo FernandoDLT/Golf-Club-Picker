@@ -37,6 +37,11 @@ h3 {
    align-items: center;
 }
 
+.swingBtn:hover {
+   color: white;
+   background: rgb(96, 186, 180);
+}
+
 
 /* Resets all clubs inputs */
 .clubs-reset {
@@ -222,4 +227,23 @@ h3 {
    max-width: 600px;
    border: 1px solid #ccc;
    padding: 20px;
+}
+
+#nextHoleBtn {
+   display: none;
+      /* display: inline-block; */
+      margin-right: 10px;
+      margin: 0 auto;
+      padding: 12px;
+      color: green;
+      background: yellow;
+      border: 2px solid green;
+      border-radius: 20px;
+      cursor: pointer;
+      align-items: center;
+}
+
+#nextHoleBtn:hover {
+   color: white;
+   background: green;
 }
