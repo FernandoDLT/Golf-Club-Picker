@@ -62,6 +62,7 @@ document.querySelector('.startRoundBtn').addEventListener('click', function() {
 });
 
 // Function to start the round and display information for a specific hole
+// Function to start the round and display information for a specific hole
 function startRound(holeNumber) {
     // Display information for the specified hole
     const hole = holes[holeNumber - 1];
@@ -85,9 +86,6 @@ function startRound(holeNumber) {
     // Enable the swing button for the current hole
     const swingBtn = document.getElementById(`swingBtn${holeNumber}`);
     swingBtn.disabled = false;
-   
-    // Declare remainingDistance outside the event listener function
-    let remainingDistance = hole.distance;
    
     // Add event listener to the swing button
     swingBtn.addEventListener('click', function() {
@@ -116,12 +114,23 @@ function startRound(holeNumber) {
             const holeCompletionMessage = document.getElementById('holeCompletionMessage');
             holeCompletionMessage.textContent = 'Hole Completed!';
             
+            // Hide the swing button
+            swingBtn.style.display = 'none';
+            
             // Call the function to complete the hole
             completeHole(holeNumber);
         }
     });
 
     document.querySelector('.hole').scrollIntoView({ behavior: 'smooth' });
+    
+    // Declare remainingDistance outside the event listener function
+    let remainingDistance = hole.distance;
+    
+    // Hide the swing button if remaining distance is 0
+    if (remainingDistance <= 0) {
+        swingBtn.style.display = 'none';
+    }
     
     // Check if all holes are completed
     if (holeNumber === holes.length) {
