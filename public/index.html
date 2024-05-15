@@ -85,7 +85,9 @@
          <p>Par: 4</p>
          <p>Distance: 400 yards</p>
          <button id="swingBtn1" class="swingBtn" disabled>Swing</button>
-         <!-- <button id="nextHoleBtn" style="display: none;">Next Hole</button> -->
+         <span id="holeCompletionMessage" style="display: none;"></span>
+         
+         <button id="nextHoleBtn" style="display: none;">Next Hole</button>
       </div>
       <!-- 
       <div class="hole" id="hole2">
@@ -209,11 +211,12 @@
    </div>
 
    <div class="yardsCounter">
-      <h3>Yardage Information:</h3>
+      <h3 id="yardageInformation">Yardage Information:</h3>
       <hr>
       <span id="yardsTraveled"></span>
       <span id="remainingDistance"></span>
       <span id="holeCompletionMessage"></span>
+      <span id="roundCompletionMessage"></span>
    </div>
    
    <script src="main.js"></script>

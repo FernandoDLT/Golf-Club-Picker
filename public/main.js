@@ -1,3 +1,5 @@
+// Event listeners setup
+document.addEventListener('DOMContentLoaded', setupEventListeners);
 // Define holes
 const holes = [
     { number: 1, par: 4, distance: 400},
@@ -26,8 +28,6 @@ const clubNames = {};
 // Load settings when the page loads
 loadSettings();
 
-// Event listeners setup
-document.addEventListener('DOMContentLoaded', setupEventListeners);
 
 // Function to save customized club distances to localStorage
 function saveSettings() {
@@ -62,7 +62,6 @@ document.querySelector('.startRoundBtn').addEventListener('click', function() {
 });
 
 // Function to start the round and display information for a specific hole
-// Function to start the round and display information for a specific hole
 function startRound(holeNumber) {
     // Display information for the specified hole
     const hole = holes[holeNumber - 1];
@@ -87,6 +86,9 @@ function startRound(holeNumber) {
     const swingBtn = document.getElementById(`swingBtn${holeNumber}`);
     swingBtn.disabled = false;
    
+    // Declare remainingDistance outside the event listener function
+    let remainingDistance = hole.distance;
+    
     // Add event listener to the swing button
     swingBtn.addEventListener('click', function() {
         // Generate a random yardage less than or equal to the remaining distance
@@ -106,7 +108,12 @@ function startRound(holeNumber) {
         // Determine the suggested club based on the updated remaining distance
         const newSuggestedClub = suggestClub(remainingDistance);
         const newClubSuggestionElement = document.getElementById('clubSuggestion');
-        newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
+        if (remainingDistance > 0) {
+            newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
+        } else {
+            // Hide the suggested club element if remaining distance is 0 or less
+            newClubSuggestionElement.style.display = 'none';
+        }
 
         // Display a completion message if the remaining distance is 0 or less
         if (remainingDistance <= 0) {
@@ -123,20 +130,6 @@ function startRound(holeNumber) {
     });
 
     document.querySelector('.hole').scrollIntoView({ behavior: 'smooth' });
-    
-    // Declare remainingDistance outside the event listener function
-    let remainingDistance = hole.distance;
-    
-    // Hide the swing button if remaining distance is 0
-    if (remainingDistance <= 0) {
-        swingBtn.style.display = 'none';
-    }
-    
-    // Check if all holes are completed
-    if (holeNumber === holes.length) {
-        // If all holes are completed, display a message or perform any final actions
-        console.log('All holes completed!');
-    }
 }
 
 // Function to hide the input fields and save button after saving settings
@@ -294,13 +287,13 @@ function suggestClub(distance) {
             { name: "4 Iron", distance: clubDistances.fourIron },
             { name: "3 Iron", distance: clubDistances.threeIron },
             { name: "5 Wood", distance: clubDistances.fiveWood },
-            { name: "3 Wood", distance: clubDistances.threeWood },
+            // { name: "3 Wood", distance: clubDistances.threeWood },
         ];
         
         const suggestedClub = clubs.find(club => yardage <= parseInt(club.distance));
         return suggestedClub ? suggestedClub.name : "No club found for the entered yardage.";
     } catch (error) {
-        console.error("Error suggesting club:", error.message);
+        // console.error("Error suggesting club:", error.message);
         return "Club distances have not been set.";
     }
 }
@@ -332,28 +325,16 @@ function displayHole(hole) {
 
 // Function to handle completion of a hole
 function completeHole(holeNumber) {
-    // Logic to handle completion of a hole, e.g., move to the next hole
-    const nextHoleBtn = document.getElementById('nextHoleBtn');
-    if (!nextHoleBtn) {
-        console.error('Next Hole button not found.');
-        return;
-    }
+    const remainingDistanceSpan = document.getElementById('remainingDistance');
+    const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
 
-    // Display the "Next Hole" button
-    nextHoleBtn.style.display = 'inline-block';
-
-    // Hide the "Hole Completed" message
-    const holeCompletionMessage = document.getElementById('holeCompletionMessage');
-    if (holeCompletionMessage) {
-        holeCompletionMessage.textContent = 'Hole Completed!';
-    } else {
-        console.error('Hole Completed message element not found.');
-    }
-
-    // Event listener for the "Next Hole" button
-    nextHoleBtn.addEventListener('click', function() {
+    if (remainingDistance === 0 && holeNumber === holes.length) {
+        // Logic to handle completion of the 18th hole
         // Hide the "Next Hole" button
-        nextHoleBtn.style.display = 'none';
+        const nextHoleBtn = document.getElementById('nextHoleBtn');
+        if (nextHoleBtn) {
+            nextHoleBtn.style.display = 'none';
+        }
 
         // Hide the "Hole Completed" message
         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
@@ -363,13 +344,184 @@ function completeHole(holeNumber) {
             console.error('Hole Completed message element not found.');
         }
 
-        // Move to the next hole
-        if (holeNumber < holes.length) {
-            // Move to the next hole
-            startRound(holeNumber + 1);
-        } else {
-            // All holes are completed, display a message or perform any final actions
-            console.log('All holes completed!');
+        // Hide the "yardsTraveled" and "remainingDistance" spans
+        const yardsTraveledSpan = document.getElementById('yardsTraveled');
+        const remainingDistanceSpan = document.getElementById('remainingDistance');
+        if (yardsTraveledSpan && remainingDistanceSpan) {
+            yardsTraveledSpan.style.display = 'none';
+            remainingDistanceSpan.style.display = 'none';
         }
-    });
+
+        // Hide the "Yardage Information" h3 element
+        const yardageInformationH3 = document.getElementById('yardageInformation');
+        if (yardageInformationH3) {
+            yardageInformationH3.style.display = 'none';
+        } else {
+            console.error('Yardage Information h3 element not found.');
+        }
+
+        // Display the "Round Completed" message
+        const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+        if (roundCompletionMessageSpan) {
+            roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+        } else {
+            console.error('Round Completed message element not found.');
+        }
+    } else {
+        // Logic for holes other than the 18th hole
+        // Display the "Next Hole" button
+        const nextHoleBtn = document.getElementById('nextHoleBtn');
+        if (nextHoleBtn) {
+            nextHoleBtn.style.display = 'inline-block';
+        }
+
+        // Display the "Hole Completed" message
+        const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+        if (holeCompletionMessage) {
+            holeCompletionMessage.textContent = 'Hole Completed!';
+        } else {
+            console.error('Hole Completed message element not found.');
+        }
+
+        // Event listener for the "Next Hole" button
+        nextHoleBtn.addEventListener('click', function() {
+            // Hide the "Next Hole" button
+            nextHoleBtn.style.display = 'none';
+
+            // Hide the "Hole Completed" message
+            const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+            if (holeCompletionMessage) {
+                holeCompletionMessage.textContent = '';
+            } else {
+                console.error('Hole Completed message element not found.');
+            }
+
+            // Move to the next hole
+            if (holeNumber < holes.length) {
+                // Move to the next hole
+                startRound(holeNumber + 1);
+            } else {
+                // All holes are completed, display a message in the roundCompletionMessage span
+                const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+                roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+            }
+        });
+    }
 }
+
+// function completeHole(holeNumber) {
+//     const remainingDistanceSpan = document.getElementById('remainingDistance');
+//     const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
+
+//     if (remainingDistance === 0) {
+//         // Logic to handle completion of a hole, e.g., move to the next hole
+//         const nextHoleBtn = document.getElementById('nextHoleBtn');
+//         if (!nextHoleBtn) {
+//             console.error('Next Hole button not found.');
+//             return;
+//         }
+
+//         // Hide the "Next Hole" button
+//         nextHoleBtn.style.display = 'none';
+
+//         // Hide the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = '';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Move to the next hole
+//         if (holeNumber < holes.length) {
+//             // Move to the next hole
+//             startRound(holeNumber + 1);
+//         } else {
+//             // All holes are completed, display a message in the roundCompletionMessage span
+//             const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+//             roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+//         }
+//     } else {
+//         // Display the "Next Hole" button
+//         const nextHoleBtn = document.getElementById('nextHoleBtn');
+//         if (nextHoleBtn) {
+//             nextHoleBtn.style.display = 'inline-block';
+//         }
+
+//         // Display the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = 'Hole Completed!';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Event listener for the "Next Hole" button
+//         nextHoleBtn.addEventListener('click', function() {
+//             // Hide the "Next Hole" button
+//             nextHoleBtn.style.display = 'none';
+
+//             // Hide the "Hole Completed" message
+//             const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//             if (holeCompletionMessage) {
+//                 holeCompletionMessage.textContent = '';
+//             } else {
+//                 console.error('Hole Completed message element not found.');
+//             }
+
+//             // Move to the next hole
+//             if (holeNumber < holes.length) {
+//                 // Move to the next hole
+//                 startRound(holeNumber + 1);
+//             } else {
+//                 // All holes are completed, display a message in the roundCompletionMessage span
+//                 const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+//                 roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+//             }
+//         });
+//     }
+// }
+
+// function completeHole(holeNumber) {
+//     // Logic to handle completion of a hole, e.g., move to the next hole
+//     const nextHoleBtn = document.getElementById('nextHoleBtn');
+//     if (!nextHoleBtn) {
+//         console.error('Next Hole button not found.');
+//         return;
+//     }
+
+//     // Display the "Next Hole" button
+//     nextHoleBtn.style.display = 'inline-block';
+
+//     // Hide the "Hole Completed" message
+//     const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//     if (holeCompletionMessage) {
+//         holeCompletionMessage.textContent = 'Hole Completed!';
+//     } else {
+//         console.error('Hole Completed message element not found.');
+//     }
+
+//     // Event listener for the "Next Hole" button
+//     nextHoleBtn.addEventListener('click', function() {
+//         // Hide the "Next Hole" button
+//         nextHoleBtn.style.display = 'none';
+
+//         // Hide the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = '';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Move to the next hole
+//         if (holeNumber < holes.length) {
+//             // Move to the next hole
+//             startRound(holeNumber + 1);
+//         } else {
+//             // All holes are completed, display a message in the roundCompletionMessage span
+//             const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+//             roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+//         }
+//     });
+// }
