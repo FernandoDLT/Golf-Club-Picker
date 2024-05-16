@@ -17,7 +17,7 @@
    <header>
       <h1>Automatic Golf Club Selector-Simulator</h1>
    </header>
-   
+   <!-- Yards input and result information-->
    <div class="yardsReset">
       <label for="yards">Yards:</label>
          <input id="yardage" type="number" placeholder="Enter yards">
@@ -25,9 +25,16 @@
       <div class="result-container">
          <span id="result"></span>
       </div>
+      <!-- <div id="clubSuggestion">Suggested Club:</div> -->
+      <!-- Instructions -->
       <h3>Please enter the yardage for each club:</h3>
    </div>
-           
+   <!-- Strokes tracker information -->
+   <div class="strokes-container">
+      <span id="stroke"></span>
+   </div>
+   
+   <!-- Club distances inputs -->
    <div class="club-distances">
       <label for="putter">Putter:</label>
       <input id="putter" type="number" placeholder="Putter">
@@ -72,21 +79,22 @@
       <input id="driver" type="number" placeholder="Driver">
    </div>
    
+   <!-- Clubs reset, save, and Start round buttons -->
    <div class="clubs-reset">
       <button id="saveBtn">Save</button>
-      <button class="resetClubs" id="resetAllClubsBtn">Reset All Clubs</button>
       <button class="startRoundBtn">Start Round</button>
+      <button class="resetClubs" id="resetAllClubsBtn">Reset All Clubs</button>
       <div id="clubSuggestion"></div>
    </div>
    
+   <!-- Holes information -->
    <div class="holes-container">
       <div class="hole" id="hole1">
          <h2>Hole #1</h2>
          <p>Par: 4</p>
          <p>Distance: 400 yards</p>
          <button id="swingBtn1" class="swingBtn" disabled>Swing</button>
-         <span id="holeCompletionMessage" style="display: none;"></span>
-         
+         <span id="holeCompletionMessage" style="display: none;"></span>         
          <button id="nextHoleBtn" style="display: none;">Next Hole</button>
       </div>
       <!-- 
@@ -210,6 +218,7 @@
       </div> -->
    </div>
 
+   <!-- Yards counter, distances, strokes and score information -->
    <div class="yardsCounter">
       <h3 id="yardageInformation">Yardage Information:</h3>
       <hr>
@@ -217,8 +226,14 @@
       <span id="remainingDistance"></span>
       <span id="holeCompletionMessage"></span>
       <span id="roundCompletionMessage"></span>
+      <span id="totalStrokes"></span>
+      <span id="totalScore"></span>
    </div>
-   
+
+   <div class="new-round">
+      <button id="new-round">New Round</button>
+   </div>
+  
    <script src="main.js"></script>
    
 </body>

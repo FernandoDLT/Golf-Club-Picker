@@ -119,7 +119,7 @@ input:focus {
 }
 
 #result {
-   display: block;
+   /* display: block; */
    font-size: 1.4rem;
    font-weight: bold;
    color: green;
@@ -243,7 +243,74 @@ h3 {
       align-items: center;
 }
 
+.strokes-container {
+   margin-top: 10px;
+}
+
+.strokes {
+   display: inline-block;
+   width: 20px;
+   height: 20px;
+   color: white;
+   background: green;
+}
+
+.strokes-label {
+   color: black;
+}
+
 #nextHoleBtn:hover {
    color: white;
    background: green;
+}
+
+.clubSuggestion {
+   display: block;
+   font-size: 16px;
+   padding: 8px;
+   width: 60%;
+   margin: 10px auto;
+   color: white;
+   background: rgb(13, 131, 123);
+   border-radius: 2px;
+}
+
+#roundCompletionMessage {
+   display: block;
+}
+
+#totalStrokes {
+   display: block;
+   margin: 20px auto;
+}
+
+#totalScore {
+   display: block;
+}
+
+.new-round {
+   display: flex;
+   /* Use flexbox */
+   justify-content: center;
+   /* Center horizontally */
+   align-items: center;
+   /* Center vertically */
+   margin-top: 20px;
+   /* Add some top margin */
+}
+
+#new-round {
+   display: none;
+   padding: 12px;
+   color: green;
+   background: yellow;
+   border: 2px solid green;
+   border-radius: 20px;
+   cursor: pointer;
+   align-items: center;
+}
+
+#new-round:hover {
+   color: white;
+   background: red;
 }
