@@ -68,6 +68,7 @@ document.getElementById('new-round').addEventListener('click', function () {
     window.location.href = 'index.html';
 });
 
+////// THE COUNTER WORKS IN THIS CODE /////////////////
 // Initialize variables to store total strokes and par for the round
 let totalStrokes = 0;
 const parForRound = 73; // Assuming the par for the round is 73
@@ -110,6 +111,23 @@ function startRound(holeNumber) {
     // Declare remainingDistance outside the event listener function
     let remainingDistance = hole.distance;
 
+    // Display the yardage information and remaining distance
+    const yardageInformationElement = document.getElementById('yardageInformation');
+    if (yardageInformationElement) {
+        yardageInformationElement.textContent = `Yardage Information: ${hole.distance} yards`;
+    }
+
+    const remainingDistanceSpan = document.getElementById('remainingDistance');
+    if (remainingDistanceSpan) {
+        remainingDistanceSpan.textContent = `Remaining Distance: ${hole.distance} yards`;
+    }
+
+    // Initialize yards traveled to 0
+    const yardsTraveledSpan = document.getElementById('yardsTraveled');
+    if (yardsTraveledSpan) {
+        yardsTraveledSpan.textContent = `Yards Traveled: 0 yards`;
+    }
+
     // Add event listener to the swing button
     if (swingBtn) {
         swingBtn.addEventListener('click', function () {
@@ -125,19 +143,15 @@ function startRound(holeNumber) {
             // Generate a random yardage less than or equal to the remaining distance
             const yardsTraveled = Math.min(remainingDistance, Math.floor(Math.random() * remainingDistance) + 1);
 
-            // const yardsTraveled = Math.min(remainingDistance, Math.floor(Math.random() * (remainingDistance + 1)));
-
             // Update the yards traveled displayed on the UI
-            const yardsTraveledSpan = document.getElementById('yardsTraveled');
             if (yardsTraveledSpan) {
-                yardsTraveledSpan.textContent = `Yards Traveled: ${yardsTraveled}`;
+                yardsTraveledSpan.textContent = `Yards Traveled: ${yardsTraveled} yards`;
             }
 
-            // Update Remaining distance to the hole
+            // Update remaining distance to the hole
             remainingDistance -= yardsTraveled;
 
             // Display the remaining distance
-            const remainingDistanceSpan = document.getElementById('remainingDistance');
             if (remainingDistanceSpan) {
                 remainingDistanceSpan.textContent = `Remaining Distance: ${remainingDistance} yards`;
             }
@@ -150,7 +164,7 @@ function startRound(holeNumber) {
                     newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
                 } else {
                     // Hide the suggested club element if remaining distance is 0 or less
-                    newClubSuggestionElement.style.display = 'none';
+                    newClubSuggestionElement.style.display = 'block';
                 }
             } else {
                 console.error(`clubSuggestionElement${holeNumber} not found.`);
@@ -202,6 +216,14 @@ function startRound(holeNumber) {
                         } else {
                             totalScoreSpan.textContent = `You shot ${Math.abs(relativeScore)} under par`;
                         }
+                    }
+
+                    // Hide the "Yards Traveled" and "Remaining Distance" elements
+                    if (yardsTraveledSpan) {
+                        yardsTraveledSpan.style.display = 'none';
+                    }
+                    if (remainingDistanceSpan) {
+                        remainingDistanceSpan.style.display = 'none';
                     }
                 }
             }
@@ -403,6 +425,7 @@ function displayHole(hole) {
 
 // Function to handle completion of a hole
 // Function to handle completion of a hole
+// Function to handle completion of a hole
 function completeHole(holeNumber) {
     const remainingDistanceSpan = document.getElementById('remainingDistance');
     const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
@@ -429,6 +452,12 @@ function completeHole(holeNumber) {
             newRoundBtn.style.display = 'inline-block';
         } else {
             console.error('New Round button element not found.');
+        }
+
+        // Display the "All Holes Completed!" message
+        const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+        if (roundCompletionMessageSpan) {
+            roundCompletionMessageSpan.textContent = 'All Holes Completed!';
         }
     } else {
         // Logic for holes other than the 18th hole
@@ -471,3 +500,320 @@ function completeHole(holeNumber) {
         });
     }
 }
+
+// Event listener for the "New Round" button
+document.getElementById('new-round').addEventListener('click', function () {
+    // Redirect to the homepage
+    window.location.href = 'index.html';
+});
+
+// function completeHole(holeNumber) {
+//     const remainingDistanceSpan = document.getElementById('remainingDistance');
+//     const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
+
+//     if (remainingDistance === 0 && holeNumber === holes.length) {
+//         // Logic to handle completion of the 18th hole
+//         // Hide the "Next Hole" button
+//         const nextHoleBtn = document.getElementById('nextHoleBtn');
+//         if (nextHoleBtn) {
+//             nextHoleBtn.style.display = 'none';
+//         }
+
+//         // Hide the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = '';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Display the "All Holes Completed!" message
+//         const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+//         if (roundCompletionMessageSpan) {
+//             roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+//         } else {
+//             console.error('Round Completion message element not found.');
+//         }
+
+//         // Display the total strokes and relative score
+//         const totalStrokesSpan = document.getElementById('totalStrokes');
+//         if (totalStrokesSpan) {
+//             totalStrokesSpan.textContent = `Total Strokes: ${totalStrokes}`;
+//         } else {
+//             console.error('Total Strokes message element not found.');
+//         }
+        
+//         // Calculate the relative score compared to par
+//         const relativeScore = totalStrokes - parForRound;
+//         const totalScoreSpan = document.getElementById('totalScore');
+//         if (totalScoreSpan) {
+//             if (relativeScore === 0) {
+//                 totalScoreSpan.textContent = 'You shot even par';
+//             } else if (relativeScore > 0) {
+//                 totalScoreSpan.textContent = `You shot ${relativeScore} over par`;
+//             } else {
+//                 totalScoreSpan.textContent = `You shot ${Math.abs(relativeScore)} under par`;
+//             }
+//         } else {
+//             console.error('Total Score message element not found.');
+//         }
+//     } else {
+//         // Logic for holes other than the 18th hole
+//         // Display the "Next Hole" button
+//         const nextHoleBtn = document.getElementById('nextHoleBtn');
+//         if (nextHoleBtn) {
+//             nextHoleBtn.style.display = 'inline-block';
+//         }
+
+//         // Display the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = 'Hole Completed!';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Event listener for the "Next Hole" button
+//         nextHoleBtn.addEventListener('click', function () {
+//             // Hide the "Next Hole" button
+//             nextHoleBtn.style.display = 'none';
+
+//             // Hide the "Hole Completed" message
+//             const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//             if (holeCompletionMessage) {
+//                 holeCompletionMessage.textContent = '';
+//             } else {
+//                 console.error('Hole Completed message element not found.');
+//             }
+
+//             // Move to the next hole
+//             if (holeNumber < holes.length) {
+//                 // Move to the next hole
+//                 startRound(holeNumber + 1);
+//             } else {
+//                 // All holes are completed, display a message in the roundCompletionMessage span
+//                 const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+//                 roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+//             }
+//         });
+//     }
+// }
+
+// function completeHole(holeNumber) {
+//     const remainingDistanceSpan = document.getElementById('remainingDistance');
+//     const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
+
+//     if (remainingDistance === 0 && holeNumber === holes.length) {
+//         // Logic to handle completion of the 18th hole
+//         // Hide the "Next Hole" button
+//         const nextHoleBtn = document.getElementById('nextHoleBtn');
+//         if (nextHoleBtn) {
+//             nextHoleBtn.style.display = 'none';
+//         }
+
+//         // Hide the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = '';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Display the "New Round" button
+//         const newRoundBtn = document.getElementById('new-round');
+//         if (newRoundBtn) {
+//             newRoundBtn.style.display = 'inline-block';
+//         } else {
+//             console.error('New Round button element not found.');
+//         }
+//     } else {
+//         // Logic for holes other than the 18th hole
+//         // Display the "Next Hole" button
+//         const nextHoleBtn = document.getElementById('nextHoleBtn');
+//         if (nextHoleBtn) {
+//             nextHoleBtn.style.display = 'inline-block';
+//         }
+
+//         // Display the "Hole Completed" message
+//         const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//         if (holeCompletionMessage) {
+//             holeCompletionMessage.textContent = 'Hole Completed!';
+//         } else {
+//             console.error('Hole Completed message element not found.');
+//         }
+
+//         // Event listener for the "Next Hole" button
+//         nextHoleBtn.addEventListener('click', function () {
+//             // Hide the "Next Hole" button
+//             nextHoleBtn.style.display = 'none';
+
+//             // Hide the "Hole Completed" message
+//             const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//             if (holeCompletionMessage) {
+//                 holeCompletionMessage.textContent = '';
+//             } else {
+//                 console.error('Hole Completed message element not found.');
+//             }
+
+//             // Move to the next hole
+//             if (holeNumber < holes.length) {
+//                 // Move to the next hole
+//                 startRound(holeNumber + 1);
+//             } else {
+//                 // All holes are completed, display a message in the roundCompletionMessage span
+//                 const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
+//                 roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+//             }
+//         });
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+////////////////// THE COUNTER WORKS IN THIS CODE /////////////////////////////////////////////////
+// let totalStrokes = 0;
+// const parForRound = 73; // Assuming the par for the round is 73
+
+// function startRound(holeNumber) {
+//     // Display information for the specified hole
+//     const hole = holes[holeNumber - 1];
+//     displayHole(hole);
+    
+//     // Initialize strokes for the current hole
+//     let strokes = 0;
+
+//     // Determine the suggested club based on distance
+//     const suggestedClub = suggestClub(hole.distance);
+   
+//     // Retrieve customized yardage for the suggested club from localStorage
+//     const clubs = JSON.parse(localStorage.getItem('clubs'));
+//     const customYardage = clubs && clubs[suggestedClub.toLowerCase()];
+   
+//     // Update HTML to display suggested club
+//     const clubSuggestionElement = document.getElementById(`clubSuggestion${holeNumber}`);
+//     if (clubSuggestionElement) {
+//         if (customYardage) {
+//             clubSuggestionElement.textContent = `Suggested Club: ${suggestedClub} (${customYardage} yards)`;
+//         } else {
+//             clubSuggestionElement.textContent = `Suggested Club: ${suggestedClub}`;
+//         }
+//     } else {
+//         console.error(`clubSuggestionElement${holeNumber} not found.`);
+//     }
+   
+//     // Enable the swing button for the current hole
+//     const swingBtn = document.getElementById(`swingBtn${holeNumber}`);
+//     if (swingBtn) {
+//         swingBtn.disabled = false;
+//     } else {
+//         console.error(`swingBtn${holeNumber} not found.`);
+//     }
+   
+//     // Declare remainingDistance outside the event listener function
+//     let remainingDistance = hole.distance;
+    
+//     // Add event listener to the swing button
+//     if (swingBtn) {
+//         swingBtn.addEventListener('click', function() {
+//             // Increment the strokes
+//             strokes++;
+
+//             // Update the strokes displayed on the UI
+//             const strokesSpan = document.getElementById(`strokes${holeNumber}`);
+//             if (strokesSpan) {
+//                 strokesSpan.textContent = strokes;
+//             }
+
+//             // Generate a random yardage less than or equal to the remaining distance
+//             const yardsTraveled = Math.min(remainingDistance, Math.floor(Math.random() * (remainingDistance + 1)));
+
+//             // Update the yards traveled displayed on the UI
+//             const yardsTraveledSpan = document.getElementById('yardsTraveled');
+//             if (yardsTraveledSpan) {
+//                 yardsTraveledSpan.textContent = `Yards Traveled: ${yardsTraveled}`;
+//             }
+            
+//             // Update Remaining distance to the hole
+//             remainingDistance -= yardsTraveled;
+            
+//             // Display the remaining distance
+//             const remainingDistanceSpan = document.getElementById('remainingDistance');
+//             if (remainingDistanceSpan) {
+//                 remainingDistanceSpan.textContent = `Remaining Distance: ${remainingDistance} yards`;
+//             }
+            
+//             // Determine the suggested club based on the updated remaining distance
+//             const newSuggestedClub = suggestClub(remainingDistance);
+//             const newClubSuggestionElement = document.getElementById(`clubSuggestion${holeNumber}`);
+//             if (newClubSuggestionElement) {
+//                 if (remainingDistance > 0) {
+//                     newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
+//                 } else {
+//                     // Hide the suggested club element if remaining distance is 0 or less
+//                     newClubSuggestionElement.style.display = 'none';
+//                 }
+//             } else {
+//                 console.error(`clubSuggestionElement${holeNumber} not found.`);
+//             }
+
+//             // Calculate the score for the current hole
+//             const scoreSpan = document.getElementById(`score${holeNumber}`);
+//             if (scoreSpan) {
+//                 scoreSpan.textContent = strokes;
+//             } else {
+//                 console.error(`score${holeNumber} not found.`);
+//             }
+
+//             // Increment the total strokes for the round
+//             totalStrokes++;
+
+//             // Display a completion message if the remaining distance is 0 or less
+//             if (remainingDistance <= 0) {
+//                 if (swingBtn) {
+//                     swingBtn.disabled = true;
+//                 }
+//                 const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+//                 if (holeCompletionMessage) {
+//                     holeCompletionMessage.textContent = 'Hole Completed!';
+//                 }
+                
+//                 // Hide the swing button
+//                 if (swingBtn) {
+//                     swingBtn.style.display = 'none';
+//                 }
+                
+//                 // Call the function to complete the hole
+//                 completeHole(holeNumber);
+
+//                 // Check if it's the last hole to display the total score
+//                 if (holeNumber === 18) {
+//                     const totalStrokesSpan = document.getElementById('totalStrokes');
+//                     if (totalStrokesSpan) {
+//                         totalStrokesSpan.textContent = `Total Strokes: ${totalStrokes}`;
+//                     }
+//                     // Calculate the relative score compared to par
+//                     const relativeScore = totalStrokes - parForRound;
+//                     const totalScoreSpan = document.getElementById('totalScore');
+//                     if (totalScoreSpan) {
+//                         if (relativeScore === 0) {
+//                             totalScoreSpan.textContent = 'You shot even par';
+//                         } else if (relativeScore > 0) {
+//                             totalScoreSpan.textContent = `You shot ${relativeScore} over par`;
+//                         } else {
+//                             totalScoreSpan.textContent = `You shot ${Math.abs(relativeScore)} under par`;
+//                         }
+//                     }
+//                 }
+//             }
+//         });
+//     }
+    
+//     document.querySelector('.hole').scrollIntoView({ behavior: 'smooth' });
+// }
