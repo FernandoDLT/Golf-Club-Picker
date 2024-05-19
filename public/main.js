@@ -495,7 +495,7 @@ function completeHole(holeNumber) {
             } else {
                 // All holes are completed, display a message in the roundCompletionMessage span
                 const roundCompletionMessageSpan = document.getElementById('roundCompletionMessage');
-                roundCompletionMessageSpan.textContent = 'All Holes Completed!';
+                roundCompletionMessageSpan.textContent = 'All Holes Completed!';                
             }
         });
     }
