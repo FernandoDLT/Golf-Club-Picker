@@ -118,15 +118,16 @@ input:focus {
    background: orange;
 }
 
+.result-container {
+   margin-top: 20px;
+}
+
 #result {
    /* display: block; */
    font-size: 1.4rem;
    font-weight: bold;
    color: green;
    width: 55%;
-   padding: 5px;
-   margin: 0 auto;
-   margin: 20px auto;
    text-align: center;
 }
 
@@ -142,10 +143,15 @@ input:focus {
    margin: 0 auto;
    margin: 20px auto;
    text-align: center;
+   display: none;
+   text-align: center;
+   margin: 20px auto;
+   width: 80%;
+   max-width: 600px;
+   border: 1px solid #ccc;
+   padding: 20px;   
 }
 
-.yardsCounter {
-}
 
 h3 {
    font-size: large;
@@ -229,18 +235,41 @@ h3 {
    padding: 20px;
 }
 
+.hole-container {
+   margin-bottom: 20px;
+   /* Add some space between each hole container */
+}
+
+.hole-info {
+   color: white;
+   background-color: rgb(96, 186, 180);
+   border: 1px solid #ccc;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+
+#previousHoleResults {
+   display: block;
+   text-align: center;
+   margin: 20px auto;
+   width: 80%;
+   max-width: 600px;
+   border: 1px solid #ccc;
+   padding: 20px;   
+}
+
 #nextHoleBtn {
    display: none;
-      /* display: inline-block; */
-      margin-right: 10px;
-      margin: 0 auto;
-      padding: 12px;
-      color: green;
-      background: yellow;
-      border: 2px solid green;
-      border-radius: 20px;
-      cursor: pointer;
-      align-items: center;
+   /* display: inline-block; */
+   margin-right: 10px;
+   margin: 0 auto;
+   padding: 12px;
+   color: green;
+   background: yellow;
+   border: 2px solid green;
+   border-radius: 20px;
+   cursor: pointer;
+   align-items: center;
 }
 
 .strokes-container {
