@@ -454,6 +454,8 @@ function completeHole(holeNumber) {
     } else {
         // If no existing containers, simply append the new container
         previousHoleResults.appendChild(holeContainer);
+        // Show the previousHoleResults div when the first hole is added
+        previousHoleResults.style.display = 'block';
     }
 
     // Logic for handling completion of holes

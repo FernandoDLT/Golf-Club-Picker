@@ -41,7 +41,7 @@
       
       <label for="sixtyDegree">60 Degree:</label>
       <input id="sixtyDegree" type="number" placeholder="60 Degree">
-
+      
       <label for="wedgeSand">Sand Wedge:</label>
       <input id="wedgeSand" type="number" placeholder="Sand Wedge">
       
@@ -79,6 +79,16 @@
       <input id="driver" type="number" placeholder="Driver">
    </div>
    
+   <!-- Not working -->
+   <div id="alertMessage">
+      Please fill all fields to customize your club distances
+   </div>
+   
+   <div class="customization-message">   
+      <!-- This is the empty <h2> element for the message -->
+      <span id="customization-message"></span>
+   </div>
+
    <!-- Clubs reset, save, and Start round buttons -->
    <div class="clubs-reset">
       <button id="saveBtn">Save</button>
@@ -90,9 +100,9 @@
    <!-- Holes information -->
    <div class="holes-container">
       <div class="hole" id="hole1">
-         <h2>Hole #1</h2>
-         <p>Par: 4</p>
-         <p>Distance: 400 yards</p>
+         <h2>Hole: </h2>
+         <p>Par: </p>
+         <p>Distance: </p>
          <button id="swingBtn1" class="swingBtn" disabled>Swing</button>
          <span id="holeCompletionMessage" style="display: none;"></span>         
          <button id="nextHoleBtn" style="display: none;">Next Hole</button>
@@ -114,9 +124,9 @@
    <!-- Records the previous hole's information -->
    <div id="previousHoleResults"></div>
 
-   <!-- Resets to a new round button -->
+   <!-- Resets button to a new round -->
    <div class="new-round">
-      <button id="new-round">New Round</button>
+      <button id="new-round">Start New Round</button>
    </div>
   
    <script src="main.js"></script>
