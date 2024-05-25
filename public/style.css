@@ -93,7 +93,6 @@ h3 {
 
 .club-distances input {
    width: 100%;
-   /* Take up remaining space in the column */
 }
 
 label {
@@ -195,10 +194,6 @@ h3 {
    border-radius: 20px;
    cursor: pointer;
    align-items: center;
-}
-
-#saveBtn {
-   /* display: none; */
 }
 
 #saveBtn:hover {
