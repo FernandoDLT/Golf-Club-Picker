@@ -307,13 +307,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to save customized club distances to localStorage
 function saveSettings() {
+    // Check if all input fields are filled
+    if (!allFieldsFilled()) {
+        // Display an alert or message to notify the user
+        alert("Please fill in all club distances before saving.");
+        return; // Exit the function if any field is not filled
+    }
+    
     const clubs = {};
     document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
         clubs[input.id] = input.value;
     });
     localStorage.setItem('clubs', JSON.stringify(clubs));
+    
     // Call handleClubDistanceInputChange to check if all fields are filled
     handleClubDistanceInputChange();
+    
     // Show the "Start Round" button if all fields are filled
     if (allFieldsFilled()) {
         document.querySelector('.startRoundBtn').style.display = 'inline-block';
@@ -354,87 +363,6 @@ function setupEventListeners() {
         window.location.href = 'index.html';
     });
 }
-
-// Function to handle input change in club distances
-// function handleClubDistanceInputChange() {
-//     // Check if all fields are filled
-//     if (allFieldsFilled()) {
-//         // Show the "Start Round" button
-//         document.querySelector('.startRoundBtn').style.display = 'inline-block';
-//         // Hide the message
-//         document.querySelector('.yardsReset h3').style.display = 'none';
-//     } else {
-//         // Hide the "Start Round" button
-//         document.querySelector('.startRoundBtn').style.display = 'none';
-//         // Show the message
-//         document.querySelector('.yardsReset h3').style.display = 'block';
-//     }
-
-//     // Add the provided code here
-//     const saveButton = document.getElementById('saveBtn');
-//     saveButton.disabled = !allFieldsFilled();
-// }
-
-// // Function to set up event listeners
-// function setupEventListeners() {
-//     document.getElementById('saveBtn').addEventListener('click', saveSettings);
-//     document.querySelector('.reset').addEventListener('click', function () {
-//         // localStorage.removeItem('clubs');
-//         // Remove the call to loadSettings() here
-//         document.getElementById('yardage').value = '';
-//     });
-
-//     document.querySelector('.resetClubs').addEventListener('click', function () {
-//         // Clear local storage
-//         localStorage.removeItem('clubs');
-
-//         // Reset all input fields within the club-distances div
-//         document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
-//             input.value = '';
-//         });
-
-//         // Redirect to the homepage
-//         window.location.href = 'index.html';
-//     });
-// }
-
-// function handleClubDistanceInputChange() {
-//     // Check if all fields are filled
-//     if (allFieldsFilled()) {
-//         // Show the "Start Round" button
-//         document.querySelector('.startRoundBtn').style.display = 'inline-block';
-//         // Hide the message
-//         document.querySelector('.yardsReset h3').style.display = 'none';
-//     } else {
-//         // Hide the "Start Round" button
-//         document.querySelector('.startRoundBtn').style.display = 'none';
-//         // Show the message
-//         document.querySelector('.yardsReset h3').style.display = 'block';
-//     }
-// }
-
-// // Function to set up event listeners
-// function setupEventListeners() {
-//     document.getElementById('saveBtn').addEventListener('click', saveSettings);
-//     document.querySelector('.reset').addEventListener('click', function () {
-//         // localStorage.removeItem('clubs');
-//         // Remove the call to loadSettings() here
-//         document.getElementById('yardage').value = '';
-//     });
-
-//     document.querySelector('.resetClubs').addEventListener('click', function () {
-//         // Clear local storage
-//         localStorage.removeItem('clubs');
-
-//         // Reset all input fields within the club-distances div
-//         document.querySelectorAll('.club-distances input[type="number"]').forEach(input => {
-//             input.value = '';
-//         });
-
-//         // Redirect to the homepage
-//         window.location.href = 'index.html';
-//     });
-// }
 
 // Function to suggest the appropriate club based on distance
 function suggestClub(distance) {
