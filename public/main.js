@@ -327,6 +327,10 @@ function saveSettings() {
     if (allFieldsFilled()) {
         document.querySelector('.startRoundBtn').style.display = 'inline-block';
     }
+    
+    // Hide the save button
+    document.getElementById('saveBtn').style.display = 'none';
+
 }
 
 // Function to handle input change in club distances
