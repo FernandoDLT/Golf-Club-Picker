@@ -74,6 +74,166 @@ let totalStrokes = 0;
 const parForRound = 73; // Assuming the par for the round is 73
 
 // Start Round functionality //
+function startRound(holeNumber) {
+    // Display information for the specified hole
+    const hole = holes[holeNumber - 1];
+    displayHole(hole);
+
+    // Initialize strokes for the current hole
+    let strokes = 0;
+
+    // Determine the suggested club based on distance
+    const suggestedClub = suggestClub(hole.distance);
+
+    // Retrieve customized yardage for the suggested club from localStorage
+    const clubs = JSON.parse(localStorage.getItem('clubs'));
+    const customYardage = clubs && clubs[suggestedClub.toLowerCase()];
+
+    // Update HTML to display suggested club
+    const clubSuggestionElement = document.getElementById(`clubSuggestion${holeNumber}`);
+    if (clubSuggestionElement) {
+        if (customYardage) {
+            clubSuggestionElement.textContent = `Suggested Club: ${suggestedClub} (${customYardage} yards)`;
+        } else {
+            clubSuggestionElement.textContent = `Suggested Club: ${suggestedClub}`;
+        }
+    } else {
+        console.error(`clubSuggestionElement${holeNumber} not found.`);
+    }
+
+    // Enable the swing button for the current hole
+    const swingBtn = document.getElementById(`swingBtn${holeNumber}`);
+    if (swingBtn) {
+        swingBtn.disabled = false;
+    } else {
+        console.error(`swingBtn${holeNumber} not found.`);
+    }
+
+    // Declare remainingDistance outside the event listener function
+    let remainingDistance = hole.distance;
+
+    // Display the yardage information and remaining distance
+    const yardageInformationElement = document.getElementById('yardageInformation');
+    if (yardageInformationElement) {
+        yardageInformationElement.textContent = `Yardage Information: ${hole.distance} yards`;
+    }
+
+    const remainingDistanceSpan = document.getElementById('remainingDistance');
+    if (remainingDistanceSpan) {
+        remainingDistanceSpan.textContent = `Remaining Distance: ${hole.distance} yards`;
+    }
+
+    // Initialize yards traveled to 0
+    const yardsTraveledSpan = document.getElementById('yardsTraveled');
+    if (yardsTraveledSpan) {
+        yardsTraveledSpan.textContent = `Yards Traveled: 0 yards`;
+    }
+
+    // Add event listener to the swing button
+    if (swingBtn) {
+        swingBtn.addEventListener('click', function () {
+            // Increment the strokes
+            strokes++;
+
+            // Update the strokes displayed on the UI
+            const strokesSpan = document.getElementById(`strokes${holeNumber}`);
+            if (strokesSpan) {
+                strokesSpan.textContent = strokes;
+            }
+
+            // Generate a random yardage less than or equal to the remaining distance
+            const yardsTraveled = Math.min(remainingDistance, Math.floor(Math.random() * remainingDistance) + 1);
+
+            // Update the yards traveled displayed on the UI
+            if (yardsTraveledSpan) {
+                yardsTraveledSpan.textContent = `Yards Traveled: ${yardsTraveled} yards`;
+            }
+
+            // Update remaining distance to the hole
+            remainingDistance -= yardsTraveled;
+
+            // Display the remaining distance
+            if (remainingDistanceSpan) {
+                remainingDistanceSpan.textContent = `Remaining Distance: ${remainingDistance} yards`;
+            }
+
+            // Determine the suggested club based on the updated remaining distance
+            const newSuggestedClub = suggestClub(remainingDistance);
+            const newClubSuggestionElement = document.getElementById(`clubSuggestion${holeNumber}`);
+            if (newClubSuggestionElement) {
+                if (remainingDistance > 0) {
+                    newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
+                } else {
+                    // Hide the suggested club element if remaining distance is 0 or less
+                    newClubSuggestionElement.style.display = 'block';
+                }
+            } else {
+                console.error(`clubSuggestionElement${holeNumber} not found.`);
+            }
+
+            // Calculate the score for the current hole
+            const scoreSpan = document.getElementById(`score${holeNumber}`);
+            if (scoreSpan) {
+                scoreSpan.textContent = strokes;
+            } else {
+                console.error(`score${holeNumber} not found.`);
+            }
+
+            // Increment the total strokes for the round
+            totalStrokes++;
+
+            // Display a completion message if the remaining distance is 0 or less
+            if (remainingDistance <= 0) {
+                if (swingBtn) {
+                    swingBtn.disabled = true;
+                }
+                const holeCompletionMessage = document.getElementById('holeCompletionMessage');
+                if (holeCompletionMessage) {
+                    holeCompletionMessage.textContent = 'Hole Completed!';
+                }
+
+                // Hide the swing button
+                if (swingBtn) {
+                    swingBtn.style.display = 'none';
+                }
+
+                // Call the function to complete the hole
+                completeHole(holeNumber);
+
+                // Check if it's the last hole to display the total score
+                if (holeNumber === 18) {
+                    const totalStrokesSpan = document.getElementById('totalStrokes');
+                    if (totalStrokesSpan) {
+                        totalStrokesSpan.textContent = `Total Strokes: ${totalStrokes}`;
+                    }
+                    // Calculate the relative score compared to par
+                    const relativeScore = totalStrokes - parForRound;
+                    const totalScoreSpan = document.getElementById('totalScore');
+                    if (totalScoreSpan) {
+                        if (relativeScore === 0) {
+                            totalScoreSpan.textContent = 'You shot even par';
+                        } else if (relativeScore > 0) {
+                            totalScoreSpan.textContent = `You shot ${relativeScore} over par`;
+                        } else {
+                            totalScoreSpan.textContent = `You shot ${Math.abs(relativeScore)} under par`;
+                        }
+                    }
+
+                    // Hide the "Yards Traveled" and "Remaining Distance" elements
+                    if (yardsTraveledSpan) {
+                        yardsTraveledSpan.style.display = 'none';
+                    }
+                    if (remainingDistanceSpan) {
+                        remainingDistanceSpan.style.display = 'none';
+                    }
+                }
+            }
+        });
+    }
+
+    document.querySelector('.hole').scrollIntoView({ behavior: 'smooth' });
+}
+
 // function startRound(holeNumber) {
 //     // Display information for the specified hole
 //     const hole = holes[holeNumber - 1];
