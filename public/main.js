@@ -109,8 +109,8 @@ function startRound(holeNumber) {
         console.error(`swingBtn${holeNumber} not found.`);
     }
 
-    // Declare remainingDistance outside the event listener function
-    let remainingDistance = hole.distance;
+    // Declare yardsToTheHole outside the event listener function
+    let yardsToTheHole = hole.distance;
 
     // Display the yardage information and remaining distance
     const yardageInformationElement = document.getElementById('yardageInformation');
@@ -118,9 +118,9 @@ function startRound(holeNumber) {
         yardageInformationElement.textContent = `Yardage Information: ${hole.distance} yards`;
     }
 
-    const remainingDistanceSpan = document.getElementById('remainingDistance');
-    if (remainingDistanceSpan) {
-        remainingDistanceSpan.textContent = `Remaining Distance: ${hole.distance} yards`;
+    const yardsToTheHoleSpan = document.getElementById('yardsToTheHole');
+    if (yardsToTheHoleSpan) {
+        yardsToTheHoleSpan.textContent = `Yards To The Hole: ${hole.distance} yards`;
     }
 
     // Initialize yards traveled to 0
@@ -142,7 +142,7 @@ function startRound(holeNumber) {
             }
 
             // Generate a random yardage less than or equal to the remaining distance
-            const yardsTraveled = Math.min(remainingDistance, Math.floor(Math.random() * remainingDistance) + 1);
+            const yardsTraveled = Math.min(yardsToTheHole, Math.floor(Math.random() * yardsToTheHole) + 1);
 
             // Update the yards traveled displayed on the UI
             if (yardsTraveledSpan) {
@@ -150,18 +150,18 @@ function startRound(holeNumber) {
             }
 
             // Update remaining distance to the hole
-            remainingDistance -= yardsTraveled;
+            yardsToTheHole -= yardsTraveled;
 
             // Display the remaining distance
-            if (remainingDistanceSpan) {
-                remainingDistanceSpan.textContent = `Remaining Distance: ${remainingDistance} yards`;
+            if (yardsToTheHoleSpan) {
+                yardsToTheHoleSpan.textContent = `Remaining Distance: ${yardsToTheHole} yards`;
             }
 
             // Determine the suggested club based on the updated remaining distance
-            const newSuggestedClub = suggestClub(remainingDistance);
+            const newSuggestedClub = suggestClub(yardsToTheHole);
             const newClubSuggestionElement = document.getElementById(`clubSuggestion${holeNumber}`);
             if (newClubSuggestionElement) {
-                if (remainingDistance > 0) {
+                if (yardsToTheHole > 0) {
                     newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
                 } else {
                     // Hide the suggested club element if remaining distance is 0 or less
@@ -183,7 +183,7 @@ function startRound(holeNumber) {
             totalStrokes++;
 
             // Display a completion message if the remaining distance is 0 or less
-            if (remainingDistance <= 0) {
+            if (yardsToTheHole <= 0) {
                 if (swingBtn) {
                     swingBtn.disabled = true;
                 }
@@ -223,8 +223,8 @@ function startRound(holeNumber) {
                     if (yardsTraveledSpan) {
                         yardsTraveledSpan.style.display = 'none';
                     }
-                    if (remainingDistanceSpan) {
-                        remainingDistanceSpan.style.display = 'none';
+                    if (yardsToTheHoleSpan) {
+                        yardsToTheHoleSpan.style.display = 'none';
                     }
                 }
             }
@@ -483,10 +483,10 @@ function completeHole(holeNumber) {
     }
 
     // Logic for handling completion of holes
-    const remainingDistanceSpan = document.getElementById('remainingDistance');
-    const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
+    const yardsToTheHoleSpan = document.getElementById('yardsToTheHole');
+    const yardsToTheHole = parseInt(yardsToTheHoleSpan.textContent.split(' ')[2]); // Extract the remaining distance
 
-    if (remainingDistance === 0 && holeNumber === holes.length) {
+    if (yardsToTheHole === 0 && holeNumber === holes.length) {
         // Logic to handle completion of the 18th hole
         // Hide the "Next Hole" button
         const nextHoleBtn = document.getElementById('nextHoleBtn');

@@ -56,7 +56,6 @@ h3 {
    margin-top: 20px;
 }
 
-
 #alertMessage {
    display: none; 
    color: red; 
@@ -172,7 +171,7 @@ h3 {
    color: black;
 }
 
-#remainingDistance {
+#yardsToTheHole {
    display: block;
    font-size: 1.2rem;
    font-weight: bold;
@@ -208,7 +207,7 @@ h3 {
 }
 
 /* Yard Distances information */
-#yardsTraveled, #remainingDistance {
+#yardsTraveled, #yardsToTheHole {
    color: rgb(96, 186, 180);
 }
 
