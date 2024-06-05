@@ -154,7 +154,7 @@ function startRound(holeNumber) {
 
             // Display the remaining distance
             if (yardsToTheHoleSpan) {
-                yardsToTheHoleSpan.textContent = `Remaining Distance: ${yardsToTheHole} yards`;
+                yardsToTheHoleSpan.textContent = `Yards To The Hole: ${yardsToTheHole} yards`;
             }
 
             // Determine the suggested club based on the updated remaining distance
