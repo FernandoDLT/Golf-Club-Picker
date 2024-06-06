@@ -94,7 +94,7 @@ h3 {
 
 /* Club distance input */
 .club-distances input {
-   width: 100%;
+   width: 180px;
 }
 
 /* Labels */
@@ -116,6 +116,8 @@ input {
 input:focus {
    background: greenyellow;
 }
+
+.club-distances
 
 /* Placeholder for yards field */
 ::placeholder {
