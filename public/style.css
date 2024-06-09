@@ -61,32 +61,23 @@ h3 {
    border: 2px solid green;
    border-radius: 20px;
    cursor: pointer;
-   /* overflow: hidden; */
+   overflow: hidden;
    /* Hide overflow to contain the progress bar */
 }
 
-.swingBtn span {
+/* .swingBtn span {
    position: relative;
-   /* Ensure the text stays on top of the progress bar */
    z-index: 1;
-   /* Ensure the text is on top of the progress bar */
-}
+} */
 
-#swingProgressBar {
-   width: 100%;
-   /* Set the width to fill the button */
+#swingProgressBar1 {
+   width: 20%;
    height: 5px;
-   /* Set the height of the progress bar */
-   background-color: #0f0;
-   /* Background color of the progress bar */
+   display: block;
+   /* color: red; */
+   /* background-color: red; */
    border: none;
-   /* Remove the default border */
    position: absolute;
-   /* Position the progress bar relative to its parent button */
-   bottom: 0;
-   /* Align the progress bar to the bottom of the button */
-   left: 0;
-   /* Align the progress bar to the left of the button */
 }
 
 /* Custome message */

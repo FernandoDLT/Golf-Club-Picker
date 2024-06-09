@@ -109,18 +109,6 @@ function startRound(holeNumber) {
         console.error(`swingBtn${holeNumber} not found.`);
     }
 
-    // For displaying the progress bar NOT WORKING AS IT SHOULD
-
-    // Create and append the progress bar element
-    const progressContainer = document.createElement('div');
-    progressContainer.className = 'progress-container';
-    const progressBar = document.createElement('progress');
-    progressBar.id = `swingProgressBar${holeNumber}`;
-    progressBar.value = 0;
-    progressBar.max = 100;
-    progressContainer.appendChild(progressBar);
-    document.body.appendChild(progressContainer);
-
     // Declare yardsToTheHole outside the event listener function
     let yardsToTheHole = hole.distance;
 
@@ -253,7 +241,7 @@ function startRound(holeNumber) {
             const swingDuration = new Date().getTime() - swingStartTime;
 
             // Calculate the power percentage based on the duration
-            const maxDuration = 3000; // Maximum duration for full power (3 seconds)
+            const maxDuration = 2000; // Maximum duration for full power (3 seconds)
             const powerPercentage = Math.min(100, (swingDuration / maxDuration) * 100); // Cap at 100%
 
             // Call the function to perform the swing with the calculated power percentage
