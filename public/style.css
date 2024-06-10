@@ -52,9 +52,7 @@ h3 {
 
 .swingBtn {
    position: relative;
-   /* Ensure the progress bar stays inside the button */
    display: inline-block;
-   /* Make sure the button is inline-block */
    padding: 12px;
    color: green;
    background: yellow;
@@ -62,22 +60,34 @@ h3 {
    border-radius: 20px;
    cursor: pointer;
    overflow: hidden;
-   /* Hide overflow to contain the progress bar */
 }
 
-/* .swingBtn span {
+.swingBtn span {
    position: relative;
    z-index: 1;
-} */
+}
+
+.progress-container {
+   text-align: center;
+   position: relative;
+   margin: 0 auto;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+}
+
+.progress-container progress span {
+   width: 20%;
+   height: 15px;
+
+   border-radius: 10px;
+   background-color: #f0f0f0;
+}
 
 #swingProgressBar1 {
-   width: 20%;
-   height: 5px;
-   display: block;
-   /* color: red; */
-   /* background-color: red; */
-   border: none;
-   position: absolute;
+   display: none;
+   margin: 1% auto;
+   height: 20px;
 }
 
 /* Custome message */
