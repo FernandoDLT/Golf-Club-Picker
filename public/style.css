@@ -38,6 +38,47 @@ h3 {
    display: none;
 }
 
+/* Current hole info */
+.hole {
+   text-align: center;
+   margin: 20px auto;
+   width: 80%;
+   max-width: 600px;
+   border: 1px solid #ccc;
+   padding: 20px;
+}
+
+/* .hole-container {
+   margin-bottom: 20px;
+} */
+
+.hole-info {
+   color: white;
+   background-color: rgb(96, 186, 180);
+   border: 1px solid #ccc;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+
+/* CSS for progress bar and container */
+.progress-container {
+   width: 80%;
+   height: 20px;
+   background-color: #f0f0f0;
+   border-radius: 4px;
+   margin: 10px auto;
+   overflow: hidden;
+   border-radius: 50px;
+}
+
+.progress {
+   height: 100%;
+   background-color: #4caf50;
+   width: 100%;
+   /* Set an initial width for testing */
+   transition: width 0.3s ease;
+}
+
 /* Swing btn */
 .swingBtn {
    margin: 0 auto;
@@ -220,28 +261,6 @@ h3 {
 .startRoundBtn:hover {
    color: white;
    background: green;
-}
-
-/* Current hole info */
-.hole {
-   text-align: center;
-   margin: 20px auto;
-   width: 80%;
-   max-width: 600px;
-   border: 1px solid #ccc;
-   padding: 20px;
-}
-
-.hole-container {
-   margin-bottom: 20px;
-}
-
-.hole-info {
-   color: white;
-   background-color: rgb(96, 186, 180);
-   border: 1px solid #ccc;
-   padding: 10px;
-   margin-bottom: 10px;
 }
 
 #previousHoleResults {

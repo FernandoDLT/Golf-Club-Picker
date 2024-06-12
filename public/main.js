@@ -29,7 +29,6 @@ const clubNames = {};
 // Load settings when the page loads
 loadSettings();
 
-
 // Function to save customized club distances to localStorage
 function saveSettings() {
     const clubs = {};
