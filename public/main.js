@@ -72,7 +72,6 @@ document.getElementById('new-round').addEventListener('click', function () {
 let totalStrokes = 0;
 const parForRound = 73; // Assuming the par for the round is 73
 
-// Start Round functionality //
 function startRound(holeNumber) {
     // Display information for the specified hole
     const hole = holes[holeNumber - 1];
@@ -108,8 +107,8 @@ function startRound(holeNumber) {
         console.error(`swingBtn${holeNumber} not found.`);
     }
 
-    // Declare remainingDistance outside the event listener function
-    let remainingDistance = hole.distance;
+    // Declare yardsToTheHole outside the event listener function
+    let yardsToTheHole = hole.distance;
 
     // Display the yardage information and remaining distance
     const yardageInformationElement = document.getElementById('yardageInformation');
@@ -117,9 +116,9 @@ function startRound(holeNumber) {
         yardageInformationElement.textContent = `Yardage Information: ${hole.distance} yards`;
     }
 
-    const remainingDistanceSpan = document.getElementById('remainingDistance');
-    if (remainingDistanceSpan) {
-        remainingDistanceSpan.textContent = `Remaining Distance: ${hole.distance} yards`;
+    const yardsToTheHoleSpan = document.getElementById('yardsToTheHole');
+    if (yardsToTheHoleSpan) {
+        yardsToTheHoleSpan.textContent = `Yards To The Hole: ${hole.distance} yards`;
     }
 
     // Initialize yards traveled to 0
@@ -130,7 +129,56 @@ function startRound(holeNumber) {
 
     // Add event listener to the swing button
     if (swingBtn) {
-        swingBtn.addEventListener('click', function () {
+        let swingInterval;
+        swingBtn.addEventListener('mousedown', function () {
+            // Record the start time when the button is pressed down
+            swingStartTime = new Date().getTime();
+
+            // Show and initialize progress bar
+            const progressBar = document.getElementById(`swingProgressBar${holeNumber}`);
+            if (progressBar) {
+                progressBar.style.display = 'block';
+                progressBar.value = 0;
+
+                // Update progress bar value every 100ms while the button is held down
+                swingInterval = setInterval(function () {
+                    const swingDuration = new Date().getTime() - swingStartTime;
+                    const maxDuration = 3000; // Maximum duration for full power (3 seconds)
+                    const powerPercentage = Math.min(100, (swingDuration / maxDuration) * 100); // Cap at 100%
+                    progressBar.value = powerPercentage;
+                }, 1);
+            }
+        });
+
+        swingBtn.addEventListener('mouseup', function () {
+            // Clear the interval when the button is released
+            clearInterval(swingInterval);
+
+            // Calculate the duration of holding down the button
+            const swingDuration = new Date().getTime() - swingStartTime;
+
+            // Calculate the power percentage based on the duration
+            const maxDuration = 3000; // Maximum duration for full power (3 seconds)
+            const powerPercentage = Math.min(100, (swingDuration / maxDuration) * 100); // Cap at 100%
+
+            // Call the function to perform the swing with the calculated power percentage
+            performSwing(powerPercentage);
+
+            // Hide progress bar after the swing
+            const progressBar = document.getElementById(`swingProgressBar${holeNumber}`);
+            if (progressBar) {
+                progressBar.style.display = 'block';
+            }
+        });
+
+        // Function to perform the swing with a given power percentage
+        function performSwing(powerPercentage) {
+            console.log(`Swing power: ${powerPercentage}%`);
+            const progressBar = document.getElementById(`swingProgressBar${holeNumber}`);
+            if (progressBar) {
+                progressBar.value = 0; // Reset progress bar after swing
+            }
+
             // Increment the strokes
             strokes++;
 
@@ -141,7 +189,7 @@ function startRound(holeNumber) {
             }
 
             // Generate a random yardage less than or equal to the remaining distance
-            const yardsTraveled = Math.min(remainingDistance, Math.floor(Math.random() * remainingDistance) + 1);
+            const yardsTraveled = Math.min(yardsToTheHole, Math.floor(Math.random() * yardsToTheHole) + 1);
 
             // Update the yards traveled displayed on the UI
             if (yardsTraveledSpan) {
@@ -149,18 +197,18 @@ function startRound(holeNumber) {
             }
 
             // Update remaining distance to the hole
-            remainingDistance -= yardsTraveled;
+            yardsToTheHole -= yardsTraveled;
 
             // Display the remaining distance
-            if (remainingDistanceSpan) {
-                remainingDistanceSpan.textContent = `Remaining Distance: ${remainingDistance} yards`;
+            if (yardsToTheHoleSpan) {
+                yardsToTheHoleSpan.textContent = `Yards To The Hole: ${yardsToTheHole} yards`;
             }
 
             // Determine the suggested club based on the updated remaining distance
-            const newSuggestedClub = suggestClub(remainingDistance);
+            const newSuggestedClub = suggestClub(yardsToTheHole);
             const newClubSuggestionElement = document.getElementById(`clubSuggestion${holeNumber}`);
             if (newClubSuggestionElement) {
-                if (remainingDistance > 0) {
+                if (yardsToTheHole > 0) {
                     newClubSuggestionElement.textContent = `Suggested Club: ${newSuggestedClub}`;
                 } else {
                     // Hide the suggested club element if remaining distance is 0 or less
@@ -182,7 +230,7 @@ function startRound(holeNumber) {
             totalStrokes++;
 
             // Display a completion message if the remaining distance is 0 or less
-            if (remainingDistance <= 0) {
+            if (yardsToTheHole <= 0) {
                 if (swingBtn) {
                     swingBtn.disabled = true;
                 }
@@ -222,16 +270,17 @@ function startRound(holeNumber) {
                     if (yardsTraveledSpan) {
                         yardsTraveledSpan.style.display = 'none';
                     }
-                    if (remainingDistanceSpan) {
-                        remainingDistanceSpan.style.display = 'none';
+                    if (yardsToTheHoleSpan) {
+                        yardsToTheHoleSpan.style.display = 'none';
                     }
                 }
             }
-        });
+        }
     }
 
     document.querySelector('.hole').scrollIntoView({ behavior: 'smooth' });
 }
+
 
 // Function to hide the input fields and save button after saving settings
 function hideFieldsAndButton() {
@@ -482,10 +531,10 @@ function completeHole(holeNumber) {
     }
 
     // Logic for handling completion of holes
-    const remainingDistanceSpan = document.getElementById('remainingDistance');
-    const remainingDistance = parseInt(remainingDistanceSpan.textContent.split(' ')[2]); // Extract the remaining distance
+    const yardsToTheHoleSpan = document.getElementById('yardsToTheHole');
+    const yardsToTheHole = parseInt(yardsToTheHoleSpan.textContent.split(' ')[2]); // Extract the remaining distance
 
-    if (remainingDistance === 0 && holeNumber === holes.length) {
+    if (yardsToTheHole === 0 && holeNumber === holes.length) {
         // Logic to handle completion of the 18th hole
         // Hide the "Next Hole" button
         const nextHoleBtn = document.getElementById('nextHoleBtn');

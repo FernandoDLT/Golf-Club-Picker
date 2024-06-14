@@ -80,7 +80,7 @@ h3 {
 }
 
 /* Swing btn */
-.swingBtn {
+/* .swingBtn {
    margin: 0 auto;
    padding: 12px;
    color: green;
@@ -89,15 +89,56 @@ h3 {
    border-radius: 20px;
    cursor: pointer;
    align-items: center;
+} */
+
+.swingBtn {
+   position: relative;
+   display: inline-block;
+   padding: 12px;
+   color: green;
+   background: yellow;
+   border: 2px solid green;
+   border-radius: 20px;
+   cursor: pointer;
+   overflow: hidden;
 }
 
+.swingBtn span {
+   position: relative;
+   z-index: 1;
+}
+
+.progress-container {
+   text-align: center;
+   position: relative;
+   margin: 0 auto;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+}
+
+.progress-container progress span {
+   width: 20%;
+   height: 15px;
+
+   border-radius: 10px;
+   background-color: #f0f0f0;
+}
+
+#swingProgressBar1 {
+   display: none;
+   margin: 1% auto;
+   height: 20px;
+}
+
+/* Custome message */
 .customization-message {
    color: green;
    text-align: center;
    margin-top: 20px;
 }
 
-
+/* Alert if any field is not filled */
 #alertMessage {
    display: none; 
    color: red; 
@@ -132,16 +173,19 @@ h3 {
    margin-right: 16px;
 }
 
+/* Club distance input */
 .club-distances input {
-   width: 100%;
+   width: 180px;
 }
 
+/* Labels */
 label {
    margin: 10px;
    font-size: 20px;
    color: rgb(13, 131, 123);
 }
 
+/* Input fields */
 input {
    padding-left: 12px;
    height: 35px;
@@ -149,15 +193,20 @@ input {
    text-align: center;
 }
 
+/* Input focus */
 input:focus {
    background: greenyellow;
 }
 
+.club-distances
+
+/* Placeholder for yards field */
 ::placeholder {
-   color: gray;
-   font-size: 14px;
+   color: rgb(199, 198, 198);
+   font-size: 18px;
 }
 
+/* Reset yardage button for yardsReset */
 #resetYardageBtn {
    margin: 0 auto;
    padding: 12px;
@@ -169,11 +218,13 @@ input:focus {
    align-items: center;
 }
 
+/* Reset yardage button */
 #resetYardageBtn:hover {
    color: white;
    background: orange;
 }
 
+/* Previous hole result */
 .result-container {
    margin-top: 20px;
 }
@@ -183,14 +234,15 @@ input:focus {
    font-size: 1.4rem;
    font-weight: bold;
    color: green;
-   width: 55%;
+   width: 155%;
    text-align: center;
 }
 
+/* Yards counter */
 .yardsCounter {
    /* display: block; */
    display: none;
-   font-size: 1.4rem;
+   font-size: 1.2rem;
    font-weight: bold;
    color: green;
    background: rgb(222, 222, 222);
@@ -208,12 +260,14 @@ input:focus {
    padding: 20px;   
 }
 
+/* Yardage information h3 */
 h3 {
-   font-size: large;
-   color: black;
+   font-size: 1.4rem;
+   color: rgb(13, 131, 123);
 }
 
-#remainingDistance {
+/* Yards to the hole counter */
+#yardsToTheHole {
    display: block;
    font-size: 1.2rem;
    font-weight: bold;
@@ -224,6 +278,7 @@ h3 {
    text-align: center;
 }
 
+/* Clubs reset button */
 .clubs-reset button {
    display: inline-block;
    margin-right: 10px;
@@ -237,11 +292,13 @@ h3 {
    align-items: center;
 }
 
+/* Save button hover */
 #saveBtn:hover {
    color: white;
    background: green;
 }
 
+/* Reset clubs hover button */
 .resetClubs:hover {
    background: red;
    color: white;
@@ -249,10 +306,11 @@ h3 {
 }
 
 /* Yard Distances information */
-#yardsTraveled, #remainingDistance {
+#yardsTraveled, #yardsToTheHole {
    color: rgb(96, 186, 180);
 }
 
+/* startRound button not dsiplayed */
 .startRoundBtn {
    display: none;
 }
@@ -263,6 +321,29 @@ h3 {
    background: green;
 }
 
+/* Current hole info */
+.hole {
+   text-align: center;
+   margin: 20px auto;
+   width: 80%;
+   max-width: 600px;
+   border: 1px solid #ccc;
+   padding: 20px;
+}
+
+.hole-container {
+   margin-bottom: 20px;
+}
+
+.hole-info {
+   color: white;
+   background-color: rgb(96, 186, 180);
+   border: 1px solid #ccc;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+
+/* Previous holes' result */
 #previousHoleResults {
    display: none;
    text-align: center;
@@ -273,11 +354,13 @@ h3 {
    padding: 20px;   
 }
 
+/* Hole par and distance */
 p {
    color: black;
    font-size: 18px;
 }
 
+/* Next hole button */
 #nextHoleBtn {
    display: none;
    margin-right: 10px;
@@ -291,10 +374,12 @@ p {
    align-items: center;
 }
 
+
 .strokes-container {
    margin-top: 10px;
 }
 
+/* Strokes content */
 .strokes {
    display: inline-block;
    width: 20px;
@@ -303,15 +388,18 @@ p {
    background: green;
 }
 
+/* Strokes counter */
 .strokes-label {
    color: black;
 }
 
+/* Next hole button hover */
 #nextHoleBtn:hover {
    color: white;
    background: green;
 }
 
+/* Suggested club */
 .clubSuggestion {
    display: block;
    font-size: 16px;
@@ -323,22 +411,26 @@ p {
    border-radius: 2px;
 }
 
+/* Round complete msg at the end */
 #roundCompletionMessage {
    display: block;
    margin-top: 14px;
    color: rgb(13, 131, 123);
 }
 
+/* Total stroke counter */
 #totalStrokes {
    display: block;
    margin: 20px auto 5px;
 }
 
+/* Total score */
 #totalScore {
    display: block;
    margin: 0px 0 20px 0;
 }
 
+/* New round button */
 .new-round {
    display: flex;
    justify-content: center;
@@ -346,6 +438,7 @@ p {
    margin-top: 20px;
 }
 
+/* New round button does not display */
 #new-round {
    display: none;
    padding: 12px;
@@ -357,6 +450,7 @@ p {
    align-items: center;
 }
 
+/* New round button */
 #new-round:hover {
    color: white;
    background: red;
