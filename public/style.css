@@ -50,6 +50,23 @@ h3 {
    align-items: center;
 }
 
+.progress-container {
+   text-align: center;
+   /* Center the contents horizontally */
+   margin-top: -10px;
+   /* Adjust margin as needed */
+}
+
+.progress-container span {
+   display: block;
+   /* Ensure "Power" text appears on its own line */
+}
+
+.progress-container progress {
+   width: 200px;
+   /* Set a width for the progress bar */
+}
+
 .customization-message {
    color: green;
    text-align: center;
