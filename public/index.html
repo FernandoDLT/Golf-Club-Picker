@@ -10,7 +10,7 @@
    <title>Golf Club Picker</title>
    <!-- <link rel="stylesheet" href="css/normalize.css"> -->
    <link rel="stylesheet" href="style.css">
-</head>
+</head>  
 
 <body>
    <header>
@@ -103,21 +103,20 @@
          <h2>Hole: </h2>
          <p>Par: </p>
          <p>Distance: </p>
-         <!-- <button id="swingBtn1" class="swingBtn"> -->
-         <button id="swingBtn1" class="swingBtn" disabled>Swing</button>
-         <div class="progress-container">
-            <span>Power</span>
-            <progress id="swingProgressBar1" value="0" max="100"></progress>
-         </div>
-            <!-- <span>Swing</span> -->
+         <button id="swingBtn1" class="swingBtn">
+            <span>Swing</span>
             </button>
             <span id="holeCompletionMessage" style="display: none;"></span>
             <button id="nextHoleBtn" style="display: none;">Next Hole</button>
       </div>
    </div>
    
+   <div class="progress-container">
+      <span>Power</span>
+      <progress id="swingProgressBar1" value="0" max="100"></progress>
+   </div>
 
-   <!-- Without progress bar -->
+   <!-- Withozut progress bar -->
    <!-- <div class="holes-container">
       <div class="hole" id="hole1">
          <h2>Hole: </h2>
@@ -129,7 +128,6 @@
       </div>
    </div>
    -->
-   
    <!-- Yards counter, distances, strokes and score information -->
    <div class="yardsCounter">
       <h3 id="yardageInformation">Yardage Information:</h3>
