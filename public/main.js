@@ -109,6 +109,10 @@ function startRound(holeNumber) {
         console.error(`swingBtn${holeNumber} not found.`);
     }
 
+    // Display the swing progress bar for the current hole
+    const progressContainer = document.querySelector('.progress-container');
+    progressContainer.style.display = 'block';
+
     // Declare remainingDistance outside the event listener function
     let remainingDistance = hole.distance;
 
@@ -223,8 +227,15 @@ function startRound(holeNumber) {
                     if (yardsTraveledSpan) {
                         yardsTraveledSpan.style.display = 'none';
                     }
+                    
+                    // Hide the "Remaining Distance" element if last hole is completed
                     if (remainingDistanceSpan) {
                         remainingDistanceSpan.style.display = 'none';
+                    }
+
+                    // Check if it's the last hole to hide the progress bar if completed
+                    if (holeNumber === 18 && remainingDistance <= 0) {
+                        progressContainer.style.display = 'none';
                     }
                 }
             }
@@ -371,9 +382,7 @@ function setupEventListeners() {
 // Function to suggest the appropriate club based on distance
 function suggestClub(distance) {
     try {
-        console.log("Distance:", distance); // Debugging statement
         const yardage = parseInt(distance);
-        console.log("Yardage:", yardage); // Debugging statement
         if (isNaN(yardage) || yardage <= 0) {
             throw new Error('Please enter a valid positive integer for yardage.');
         }
@@ -410,8 +419,8 @@ function suggestClub(distance) {
             // { name: "3 Wood", distance: clubDistances.threeWood },
         ];
 
-        const suggestedClub = clubs.find(club => yardage <= parseInt(club.distance));
-        return suggestedClub ? suggestedClub.name : "No club found for the entered yardage.";
+    const suggestedClub = clubs.find(club => yardage <= parseInt(club.distance));
+    return suggestedClub ? suggestedClub.name : "No club found for the entered yardage.";
     } catch (error) {
         // console.error("Error suggesting club:", error.message);
         return "Club distances have not been set.";

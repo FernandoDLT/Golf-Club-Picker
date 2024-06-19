@@ -51,6 +51,7 @@ h3 {
 }
 
 .progress-container {
+   display: none;
    text-align: center;
    /* Center the contents horizontally */
    margin-top: -10px;
@@ -63,7 +64,8 @@ h3 {
 }
 
 .progress-container progress {
-   width: 200px;
+   /* display: none; */
+   width: 180px;
    /* Set a width for the progress bar */
 }
 
