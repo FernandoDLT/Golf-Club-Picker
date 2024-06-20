@@ -238,34 +238,34 @@ function startRound(holeNumber) {
     }
 }
 
-// Add event listeners for power buildup and swing simulation
-swingBtn.addEventListener('mousedown', function () {
-    // Ensure timer is not already running
-    if (timer === null) {
-        power = 0; // Reset power for new swing
-        timer = setInterval(function () {
-            power += 1; // Adjust power increment as needed
-            const progressBar = document.getElementById(`swingProgressBar${holeNumber}`);
-            if (progressBar) {
-                progressBar.value = power; // Update the progress bar value
-            }
+    // Add event listeners for power buildup and swing simulation
+    swingBtn.addEventListener('mousedown', function () {
+        // Ensure timer is not already running
+        if (timer === null) {
+            power = 0; // Reset power for new swing
+            timer = setInterval(function () {
+                power += 1; // Adjust power increment as needed
+                const progressBar = document.getElementById(`swingProgressBar${holeNumber}`);
+                if (progressBar) {
+                    progressBar.value = power; // Update the progress bar value
+                }
 
-            // Logic to check if maximum power is reached
-            if (power >= 100) {
-                clearInterval(timer); // Stop the timer
-                timer = null; // Reset timer variable
-                simulateSwing(power); // Simulate swing with calculated power
-            }
-        }, 10); // Adjust interval for desired responsiveness
-    }
-});
+                // Logic to check if maximum power is reached
+                if (power >= 100) {
+                    clearInterval(timer); // Stop the timer
+                    timer = null; // Reset timer variable
+                    simulateSwing(power); // Simulate swing with calculated power
+                }
+            }, 10); // Adjust interval for desired responsiveness
+        }
+    });
 
-document.addEventListener('mouseup', function () {
-    // Check if timer is running
-    if (timer !== null) {
-        clearInterval(timer); // Stop the timer if mouse is released early
-        timer = null; // Reset timer variable
-        simulateSwing(power); // Simulate swing with calculated power
+    document.addEventListener('mouseup', function () {
+        // Check if timer is running
+        if (timer !== null) {
+            clearInterval(timer); // Stop the timer if mouse is released early
+            timer = null; // Reset timer variable
+            simulateSwing(power); // Simulate swing with calculated power
         }
     });
 
